@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000000"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="8dp">
+
+        <ImageView
+            android:id="@+id/imageClose"
+            android:clickable="true"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close_24"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"/>
+
+
+        <!--标题-->
+        <com.example.ebskk.widget.VNLineTextView
+            android:id="@+id/itemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:lines="1"
+            android:minWidth="80dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="倉庫顶顶顶顶的点点滴滴"
+            android:textSize="@dimen/default_font_size" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp">
+
+        <ListView
+            android:id="@+id/itemListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#444"
+            android:dividerHeight="1dp"
+            android:fastScrollEnabled="false"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#6030ff"
+            app:qmui_detail_text="ロード中..."
+            app:qmui_show_loading="true" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

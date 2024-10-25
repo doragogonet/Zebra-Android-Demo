@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:padding="16dp">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/TvProCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProCodeLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProNameLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProModelLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProCountLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProBatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProBatchLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProBoxLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProTypeLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProCreateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProCreateTimeLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvProCreateCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvProCreateCompanyLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+    <TextView
+        android:id="@+id/TvEpc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/TvEpcLine"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"/>
+
+
+<!--    <Button-->
+<!--        android:id="@+id/BtClear"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="5dp"-->
+<!--        android:background="@drawable/button_bg"-->
+<!--        android:text="@string/btClear"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="15sp" />-->
+</LinearLayout>
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

@@ -1,0 +1,62 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- タイトル -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="タグ追跡"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- EPCコード入力 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EPCコード" />
+
+    <EditText
+        android:id="@+id/etEPCCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="EPCコードを入力" />
+
+    <!-- プログレスバー -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        android:max="100"
+        android:progress="0"
+        android:indeterminate="false"
+        android:progressDrawable="@android:drawable/progress_horizontal" />
+
+    <!-- 開始・終了ボタン -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnStartTracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="開始"
+            android:layout_margin="8dp" />
+
+        <Button
+            android:id="@+id/btnStopTracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="終了"
+            android:layout_margin="8dp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,95 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- フィルタ設定タイトル -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="フィルタ設定"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 番号、データ、メモリバンク、オフセット、長さ -->
+        <EditText
+            android:id="@+id/etNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="番号" />
+
+        <EditText
+            android:id="@+id/etData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="データ"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spMemoryBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:entries="@array/memory_bank_options" />
+
+        <EditText
+            android:id="@+id/etOffset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="オフセット"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/etLength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="長さ(bits)"
+            android:layout_marginTop="8dp" />
+
+        <!-- アクション、ターゲット -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Spinner
+                android:id="@+id/spAction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/action_options" />
+
+            <Spinner
+                android:id="@+id/spTarget"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:entries="@array/target_options" />
+        </LinearLayout>
+
+        <!-- 追加ボタン -->
+        <Button
+            android:id="@+id/btnAddFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="追加"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp" />
+
+        <!-- フィルタリスト -->
+        <ListView
+            android:id="@+id/lvFilters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>

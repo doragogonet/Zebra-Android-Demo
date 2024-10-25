@@ -1,0 +1,70 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- ステータスバー -->
+    <TextView
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ステータスバー"
+        android:padding="16dp"
+        android:background="#E0E0E0"
+        android:textSize="18sp" />
+
+    <!-- ボタンのグリッドレイアウト -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="2"
+        android:columnCount="2"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center">
+
+        <!-- Inventoryボタン -->
+        <Button
+            android:id="@+id/btnInventory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:text="Inventory"
+            android:backgroundTint="#ADD8E6" />
+
+        <!-- Inventory履歴ボタン -->
+        <Button
+            android:id="@+id/btnInventoryHistory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:text="Inventory履歴"
+            android:backgroundTint="#ADD8E6" />
+
+        <!-- タグ追跡ボタン -->
+        <Button
+            android:id="@+id/btnTagTracking"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:text="タグ追跡"
+            android:backgroundTint="#ADD8E6" />
+
+        <!-- 設定ボタン -->
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:text="設定"
+            android:backgroundTint="#ADD8E6" />
+    </GridLayout>
+
+</LinearLayout>
