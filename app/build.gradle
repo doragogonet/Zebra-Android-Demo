@@ -9,7 +9,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0.0"
+        versionName "2.0.3.162"
     }
 
     buildTypes {
@@ -29,7 +29,7 @@ android {
         // 自定义apk名称
         android.applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "UHF-ebskk_v${defaultConfig.versionName}.apk"
+                outputFileName = "Zebra_RFIDAPI3_SDK_${defaultConfig.versionName}.apk"
             }
         }
     }

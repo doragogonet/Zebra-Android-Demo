@@ -8,4 +8,4 @@ pluginManagement {
 }
 
 include ':app'
-rootProject.name='uhf-ebskk-demo'
+rootProject.name='Zebra-RFIDAPI3-SDK'
