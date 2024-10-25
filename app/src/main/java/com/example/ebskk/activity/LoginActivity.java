@@ -25,9 +25,9 @@ import android.util.Log;
 public class LoginActivity extends BaseTabFragmentActivity implements View.OnClickListener {
 
     private ImageView displayPassword;
-    private EditText etUserName;        //用户名
-    private EditText etPassWord;        //密码
-    private CheckBox rememberMe;        //记住密码
+    private EditText etUserName;        
+    private EditText etPassWord;        
+    private CheckBox rememberMe;        
     private boolean isHideFirst = true;
     private boolean isLogin;
     private SharedPreferences sharedPreferences;
@@ -36,15 +36,12 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //初始化控件
         etUserName = findViewById(R.id.userName);
         etPassWord = findViewById(R.id.password);
         rememberMe = findViewById(R.id.rememberMe);
 
-        //获取sharedPreferences实例
         sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
 
-        //是否勾选了“remember me”
         isLogin = sharedPreferences.getBoolean("isLogin", false);
         if (isLogin) {
             String userName = sharedPreferences.getString("userName",null);
@@ -58,7 +55,6 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
         displayPassword.setOnClickListener(this);
         displayPassword.setImageResource(R.drawable.eye_close);
 
-        //登录
         findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,12 +75,10 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
 
                                 Log.i("ccc","result"+JSON.toJSONString(result));
 
-                                //记住密码
                                 doRememberMe(userName,passWord);
 
                                 doRememberToken(result);
 
-                                //登录成功
                                 loginSuccess();
 
                                 new LoginController() {
@@ -113,7 +107,6 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
             }
         });
 
-        //remember me的点击事件
         rememberMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -125,10 +118,10 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
     private void doRememberMe(String userName,String passWord) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putBoolean("isLogin", isLogin);   //保存“remember me”
-        editor.putString("userName",userName);  //保存“ユーザー名”
-        editor.putString("passWord",passWord);  //保存“パスワード”
-        //提交
+        editor.putBoolean("isLogin", isLogin);   
+        editor.putString("userName",userName); 
+        editor.putString("passWord",passWord);  
+        
         editor.apply();
 //        editor.commit();
     }
@@ -137,7 +130,7 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString("token",result.getToken());  //保存Token
-        //提交
+      
         editor.apply();
 //        editor.commit();
     }
@@ -145,8 +138,8 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
     private void doRememberUserNick(AjaxResult result) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("nickName",result.getUser().getNickName());  //保存显示用户名
-        //提交
+        editor.putString("nickName",result.getUser().getNickName());  
+   
         editor.commit();
     }
 
@@ -163,12 +156,12 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
             case R.id.display_password:{
                 if (isHideFirst) {
                     displayPassword.setImageResource(R.drawable.eye_close);
-                    // 用户想要隐藏密码
+                   
                     etPassWord.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     isHideFirst = false;
                 } else {
                     displayPassword.setImageResource(R.drawable.eye);
-                    // 用户想要显示密码
+                   
                     etPassWord.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     isHideFirst = true;
                 }

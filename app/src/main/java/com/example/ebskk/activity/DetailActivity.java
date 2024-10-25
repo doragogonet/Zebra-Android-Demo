@@ -25,11 +25,11 @@ public class DetailActivity extends BaseTabFragmentActivity {
     public static final String TAG_PRO_CREATE_COMPANY = "tagProCreateCompany";
     public static final String TAG_PRO_BOX = "tagProBox";
 
-    public static final int VISIBLE = 0;        //可见
-    public static final int INVISIBILITY = 4;   //不可见，占用原来的布局空间
-    public static final int GONE = 8;           //不可见，不占用原来的布局空间
-    public static final String LABEL_NAME1 = "托盘";
-    public static final String LABEL_NAME2 = "无关标签";
+    public static final int VISIBLE = 0;        
+    public static final int INVISIBILITY = 4;   
+    public static final int GONE = 8;           
+    public static final String LABEL_NAME1 = "";
+    public static final String LABEL_NAME2 = "";
 
     @SuppressLint("WrongConstant")
     @Override

@@ -38,14 +38,12 @@ public class BaseTabFragmentActivity extends FragmentActivity {
 		setDarkStatusWhite(true);
 
 	}
-	/**
-	 *bDark   true   黑色     false   白色
-	 */
+
 	public void setDarkStatusWhite(boolean bDark) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			View decorView = getWindow().getDecorView();
-			//修改状态栏颜色只需要这行代码
-			getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));//这里对应的是状态栏的颜色，就是style中colorPrimaryDark的颜色
+			
+			getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
 			if (decorView != null) {
 				int vis = decorView.getSystemUiVisibility();
 				if (bDark) {
@@ -74,9 +72,7 @@ public class BaseTabFragmentActivity extends FragmentActivity {
 	}
 
 
-	/**
-	 * ����ActionBar
-	 */
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
