@@ -1,0 +1,39 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    
+     <!-- 将自定义的style取名为CustomTheme，父类为Theme.Holo.Light，也就是说默认背景是白底黑字（如果是Theme.Holo，则默认是黑底白字） -->  
+<!--     <style name="CustomTheme" parent="android:style/Theme.Holo.Light">-->
+    <style name="CustomTheme" parent="QMUI.Compat">
+<!--    <style name="CustomTheme" parent="android:style/Theme.Holo.Light">-->
+    <!-- 这是item的背景修改，不按时透明，按时显示绿色  -->
+         <!-- <item name="android:selectableItemBackground">@color/white1</item> -->
+         <!-- <item name="android:actionDropDownStyle">@style/MyDropDownNav</item>
+         <item name="android:dropDownListViewStyle">@style/MyDropDownListView</item>
+         <item name="android:actionBarTabStyle">@style/MyActionBarTabStyle</item> -->
+
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/background_material_light</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:editTextColor">@android:color/black</item>
+
+        <item name="colorAccent">@color/dark</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+
+
+<!--        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabTextStyle</item>-->
+<!--        <item name="android:actionBarStyle">@style/MyActionBarStyle</item>-->
+<!--        <item name="android:homeAsUpIndicator">@drawable/actionbar_back</item>-->
+     </style>  
+     
+
+
+</resources>

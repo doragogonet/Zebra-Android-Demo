@@ -20,9 +20,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ebskk.R;
-import com.example.ebskk.fragment.UHFReadTagFragment;
-import com.example.ebskk.tools.EpcData;
-import com.example.ebskk.tools.EpcFormat;
 import com.example.ebskk.tools.StringUtils;
 import com.zebra.rfid.api3.BEEPER_VOLUME;
 import com.zebra.rfid.api3.ENUM_TRANSPORT;

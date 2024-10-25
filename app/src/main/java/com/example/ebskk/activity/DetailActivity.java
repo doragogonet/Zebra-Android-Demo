@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.ebskk.R;
 
 import java.util.HashMap;
 
-public class DetailActivity extends BaseTabFragmentActivity {
+public class DetailActivity extends FragmentActivity {
     public static final String TAG_EPC = "tagEPC";
     public static final String TAG_EPC_TID = "tagEpcTID";
     public static final String TAG_COUNT = "tagCount";

@@ -36,5 +36,6 @@
         <item>SESSION S2</item>
         <item>SESSION S3</item>
     </string-array>
-    
+    <string name="app_name">EBS-Gateway</string>
+    <string name="close">Close</string>
 </resources>

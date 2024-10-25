@@ -22,7 +22,9 @@ import com.example.ebskk.controller.LoginController;
 
 import android.util.Log;
 
-public class LoginActivity extends BaseTabFragmentActivity implements View.OnClickListener {
+import androidx.fragment.app.FragmentActivity;
+
+public class LoginActivity extends FragmentActivity implements View.OnClickListener {
 
     private ImageView displayPassword;
     private EditText etUserName;        
@@ -145,7 +147,7 @@ public class LoginActivity extends BaseTabFragmentActivity implements View.OnCli
 
     private void loginSuccess() {
 //        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-        Intent intent = new Intent(LoginActivity.this,UHFMainActivity.class);
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
     }
