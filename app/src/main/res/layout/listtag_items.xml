@@ -6,7 +6,6 @@
     android:orientation="horizontal"
     android:padding="5dp" >
 
-    <!-- sxt add start -->
     <TextView
         android:id="@+id/TvItemId"
         android:layout_width="0dip"
@@ -18,27 +17,20 @@
         android:gravity="right"/>
 
     <TextView
-        android:id="@+id/TvProName"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="4"
-        android:textSize="17dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" />
-    <!-- sxt add end -->
-    <TextView
-        android:id="@+id/TvTagUii"
+        android:id="@+id/TvTagEPC"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
+        android:paddingBottom="2dp" />
 
     <TextView
-        android:id="@+id/TvTagLen"
+        android:id="@+id/TvTagRssi"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1" android:visibility="gone" />
+        android:layout_weight="5"
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp" />
 
     <TextView
         android:id="@+id/TvTagCount"
@@ -47,26 +39,26 @@
         android:layout_weight="1"
         android:paddingTop="3dp"
         android:paddingBottom="2dp" android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/TvTagTID"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp" android:visibility="gone" />
     
     <TextView
-        android:id="@+id/TvTagRssi"
+        android:id="@+id/TvTagID"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingTop="3dp"
         android:paddingBottom="2dp" android:visibility="gone" />
 
-    <!-- sxt add start -->
-    <TextView
-        android:id="@+id/TvProCode"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
 
     <TextView
-        android:id="@+id/TvProModel"
+        android:id="@+id/TvTagPassword"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -74,7 +66,7 @@
         android:paddingBottom="2dp" android:visibility="gone" />
 
     <TextView
-        android:id="@+id/TvProCount"
+        android:id="@+id/TvTagReserved"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -82,44 +74,11 @@
         android:paddingBottom="2dp" android:visibility="gone" />
 
     <TextView
-        android:id="@+id/TvProBatch"
+        android:id="@+id/TvTagUser"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingTop="3dp"
         android:paddingBottom="2dp" android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/TvProType"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/TvProCreateTime"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/TvProCreateCompany"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/TvProBox"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
-    <!-- sxt add end -->
 
 </LinearLayout>

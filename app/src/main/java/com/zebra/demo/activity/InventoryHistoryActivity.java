@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
+import com.zebra.demo.bean.HistoryData;
 import com.zebra.demo.tools.StringUtils;
 
 import java.util.ArrayList;
@@ -28,9 +29,14 @@ public class InventoryHistoryActivity extends AppCompatActivity {
     private HashMap<String, String> map;
     MyAdapter adapter;
 
-    public static final String TAG_EPC_TID = "tagEpcTID";
     public static final String TAG_RSSI = "tagRssi";
-    public static final String TAG_EPC = "tagEPC";
+    public static final String TAG_COUNT = "tagCount";
+    public static final String TAG_ID = "tagId";
+    public static final String TAG_PASSWORD = "tagPassword";
+    public static final String TAG_EPC = "tagEpc";
+    public static final String TAG_TID = "tagTid";
+    public static final String TAG_RESERVED = "tagReserved";
+    public static final String TAG_USER = "tagUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,7 @@ public class InventoryHistoryActivity extends AppCompatActivity {
         LvTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 处理点击事件逻辑，position表示点击的位置
+
                 adapter.setSelectItem(position);
                 adapter.notifyDataSetInvalidated();
 
@@ -57,22 +63,19 @@ public class InventoryHistoryActivity extends AppCompatActivity {
 
     }
 
-    private void addDataToList(String epc,String epcAndTidUser, String rssi) {
-        if (StringUtils.isNotEmpty(epc)) {
+    private void addDataToList(HistoryData data) {
+        if (StringUtils.isNotEmpty(data.getTagEPC())) {
 
             map = new HashMap<String, String>();
-            map.put(TAG_EPC, epc);
-            map.put(TAG_EPC_TID, epcAndTidUser);
-            map.put(TAG_RSSI, rssi);
+            map.put(TAG_EPC, data.getTagEPC());
+            map.put(TAG_TID, data.getTagTID());
+            map.put(TAG_RSSI, data.getTagRssi());
+            map.put(TAG_COUNT,data.getTagCount());
+            map.put(TAG_ID,data.getTagID());
+            map.put(TAG_PASSWORD,data.getTagPssword());
+            map.put(TAG_RESERVED,data.getTagReserved());
+            map.put(TAG_USER,data.getTagUser());
 
-            String tempCode = "";
-            String tempName = "";
-            if (epc.length()>6) {
-                tempCode = epc.substring(0,6);
-            }
-            map.put(TAG_EPC_TID, "");
-            map.put(TAG_EPC, "");
-            map.put(TAG_RSSI, "");
             tagList.add(map);
 
             adapter.notifyDataSetChanged();
@@ -82,21 +85,15 @@ public class InventoryHistoryActivity extends AppCompatActivity {
 
     private int  selectItem = -1;
     public final class ViewHolder {
-        public TextView tvEPCTID;
+        public TextView tvTagID;
+        public TextView tvTagPssword;
+        public TextView tvTagEPC;
+        public TextView tvTagTID;
+        public TextView tvTagReserved;
+        public TextView tvTagUser;
         public TextView tvTagCount;
         public TextView tvTagRssi;
-        //sxt add start
-        public TextView tvItemId;           //索引
-        public TextView tvProCode;          //号型代码
-        public TextView tvProName;          //物资名称
-        public TextView tvProModel;         //物资号型
-        public TextView tvProCount;         //装箱数量
-        public TextView tvProBatch;         //批次编号
-        public TextView tvProType;          //种类
-        public TextView tvProCreateTime;    //生产日期
-        public TextView tvProCreateCompany;     //生产企业
-        public TextView tvProBox;               //箱
-        //sxt add end
+        public TextView tvItemId;
     }
     public class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
@@ -122,27 +119,28 @@ public class InventoryHistoryActivity extends AppCompatActivity {
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = mInflater.inflate(R.layout.listtag_items, null);
-                holder.tvEPCTID = (TextView) convertView.findViewById(R.id.TvTagUii);
+                holder.tvItemId = (TextView) convertView.findViewById(R.id.TvItemId);
+                holder.tvTagID = (TextView) convertView.findViewById(R.id.TvTagID);
+                holder.tvTagPssword = (TextView) convertView.findViewById(R.id.TvTagPassword);
+                holder.tvTagEPC = (TextView) convertView.findViewById(R.id.TvTagEPC);
+                holder.tvTagTID = (TextView) convertView.findViewById(R.id.TvTagTID);
+                holder.tvTagReserved = (TextView) convertView.findViewById(R.id.TvTagReserved);
+                holder.tvTagUser = (TextView) convertView.findViewById(R.id.TvTagUser);
                 holder.tvTagCount = (TextView) convertView.findViewById(R.id.TvTagCount);
                 holder.tvTagRssi = (TextView) convertView.findViewById(R.id.TvTagRssi);
-
-                holder.tvItemId = (TextView) convertView.findViewById(R.id.TvItemId);   //找到布局
-                holder.tvProCode = (TextView) convertView.findViewById(R.id.TvProCode);
-                holder.tvProName = (TextView) convertView.findViewById(R.id.TvProName);
-                holder.tvProModel = (TextView) convertView.findViewById(R.id.TvProModel);
-                holder.tvProCount = (TextView) convertView.findViewById(R.id.TvProCount);
-                holder.tvProBatch = (TextView) convertView.findViewById(R.id.TvProBatch);
-                holder.tvProType = (TextView) convertView.findViewById(R.id.TvProType);
-                holder.tvProCreateTime = (TextView) convertView.findViewById(R.id.TvProCreateTime);
-                holder.tvProCreateCompany = (TextView) convertView.findViewById(R.id.TvProCreateCompany);
-                holder.tvProBox = (TextView) convertView.findViewById(R.id.TvProBox);
 
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-            holder.tvEPCTID.setText((String) tagList.get(position).get(TAG_EPC_TID));
+            holder.tvItemId.setText(String.valueOf((position + 1)));
+            holder.tvTagID.setText((String) tagList.get(position).get(TAG_ID));
+            holder.tvTagPssword.setText((String) tagList.get(position).get(TAG_PASSWORD));
+            holder.tvTagEPC.setText((String) tagList.get(position).get(TAG_EPC));
+            holder.tvTagTID.setText((String) tagList.get(position).get(TAG_TID));
+            holder.tvTagReserved.setText((String) tagList.get(position).get(TAG_RESERVED));
+            holder.tvTagUser.setText((String) tagList.get(position).get(TAG_USER));
+            holder.tvTagCount.setText((String) tagList.get(position).get(TAG_COUNT));
             holder.tvTagRssi.setText((String) tagList.get(position).get(TAG_RSSI));
 
             if (position == selectItem) {

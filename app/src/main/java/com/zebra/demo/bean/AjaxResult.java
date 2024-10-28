@@ -8,7 +8,6 @@ public class AjaxResult {
     private int code;
     private Object data;
     private String token;
-    private User user;
 
     public AjaxResult() {
     }
@@ -69,11 +68,4 @@ public class AjaxResult {
         this.token = token;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

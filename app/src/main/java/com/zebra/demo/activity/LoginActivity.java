@@ -141,7 +141,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private void doRememberUserNick(AjaxResult result) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("nickName",result.getUser().getNickName());  
+        editor.putString("nickName","EBS");
    
         editor.commit();
     }
