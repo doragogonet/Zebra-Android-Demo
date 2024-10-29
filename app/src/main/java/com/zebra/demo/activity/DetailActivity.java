@@ -30,27 +30,31 @@ public class DetailActivity extends FragmentActivity {
 
         //タグID（Hex）
         TextView tvTagId = (TextView) findViewById(R.id.TvDetailTagId);
-        tvTagId.setText("タグID（Hex）：" + map.get(InventoryHistoryActivity.TAG_ID).toString());
-
-        //パスワード（Hex）
-        TextView tvPasswrod = (TextView) findViewById(R.id.TvDetailTagPassword);
-        tvPasswrod.setText("パスワード（Hex）：" + map.get(InventoryHistoryActivity.TAG_PASSWORD).toString());
+        tvTagId.setText("タグID（Hex）：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_ID)));
 
         //TID
         TextView tvTid = (TextView) findViewById(R.id.TvDetailTagTid);
-        tvTid.setText("TID：" + map.get(InventoryHistoryActivity.TAG_TID).toString());
-
-        //RESERVED
-        TextView tvReserved = (TextView) findViewById(R.id.TvDetailTagReserved);
-        tvReserved.setText("RESERVED：" + map.get(InventoryHistoryActivity.TAG_RESERVED).toString());
+        tvTid.setText("TID：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_TID)));
 
         //EPC
         TextView tvEpc = (TextView) findViewById(R.id.TvDetailTagEpc);
-        tvEpc.setText("EPC：" + map.get(InventoryHistoryActivity.TAG_EPC).toString());
+        tvEpc.setText("EPC：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_EPC)));
 
         //USER
         TextView tvUser = (TextView) findViewById(R.id.TvDetailTagUser);
-        tvUser.setText("USER：" + map.get(InventoryHistoryActivity.TAG_USER).toString());
+        tvUser.setText("USER：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_USER)));
+
+        TextView tvMemory = (TextView) findViewById(R.id.TvDetailTagMemoryBank);
+        tvMemory.setText("MEMORY BANK：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_MEMORY_BANK)));
+
+        TextView tvAntennaId = (TextView) findViewById(R.id.TvDetailTagAntennaId);
+        tvAntennaId.setText("ANTENNA ID：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_ANTENNA_ID)));
+
+        TextView tvCrc = (TextView) findViewById(R.id.TvDetailTagCrc);
+        tvCrc.setText("CRC：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_CRC)));
+
+        TextView tvEventTime = (TextView) findViewById(R.id.TvDetailTagEventTime);
+        tvEventTime.setText("EVENT TIME：" + String.valueOf(map.get(InventoryHistoryActivity.TAG_EVENT_TIME)));
 
     }
 }

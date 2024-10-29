@@ -11,9 +11,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
+import com.zebra.demo.tools.CSVOperator;
 import com.zebra.rfid.api3.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class InventoryActivity extends AppCompatActivity {
     private int tagCount = 0;
     private ArrayList<String> epcList = new ArrayList<>();
     private ArrayList<String> rssiList = new ArrayList<>();
+    private List<TagData> tagList = new ArrayList<TagData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,7 @@ public class InventoryActivity extends AppCompatActivity {
                     TagData[] tags = reader.Actions.getReadTags(100);
                     if (tags != null) {
                         for (TagData tag : tags) {
+                            tagList.add(tag);
                             epcList.add(tag.getTagID());
                             rssiList.add(String.valueOf(tag.getPeakRSSI()));
                             tagCount++;
@@ -134,6 +138,7 @@ public class InventoryActivity extends AppCompatActivity {
     // インベントリの開始
     private void startInventory() {
         try {
+            this.tagList.clear();
             reader.Actions.Inventory.perform();
             Toast.makeText(this, "インベントリ開始", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
@@ -146,6 +151,9 @@ public class InventoryActivity extends AppCompatActivity {
         try {
             reader.Actions.Inventory.stop();
             Toast.makeText(this, "インベントリ終了", Toast.LENGTH_SHORT).show();
+            if (this.tagList.size() > 0) {
+                CSVOperator.writeToCsvFile(this.tagList);
+            }
         } catch (Exception e) {
             Toast.makeText(this, "インベントリ終了に失敗しました", Toast.LENGTH_SHORT).show();
         }

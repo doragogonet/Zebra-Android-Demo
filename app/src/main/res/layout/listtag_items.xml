@@ -56,23 +56,6 @@
         android:paddingTop="3dp"
         android:paddingBottom="2dp" android:visibility="gone" />
 
-
-    <TextView
-        android:id="@+id/TvTagPassword"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/TvTagReserved"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp" android:visibility="gone" />
-
     <TextView
         android:id="@+id/TvTagUser"
         android:layout_width="0dip"
@@ -81,4 +64,35 @@
         android:paddingTop="3dp"
         android:paddingBottom="2dp" android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/TvTagMemoryBank"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp" android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/TvTagAntennaId"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp" android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/TvTagCrc"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp" android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/TvTagEventTime"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="3dp"
+        android:paddingBottom="2dp" android:visibility="gone" />
 </LinearLayout>

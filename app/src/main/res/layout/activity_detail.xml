@@ -20,11 +20,6 @@
         android:textSize="17dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp" />
-    <TextView
-        android:id="@+id/TvDetailTagPassword"
-        android:background="@color/gray"
-        android:layout_width="match_parent"
-        android:layout_height="0.25dp"/>
 
     <TextView
         android:id="@+id/TvDetailTagTid"
@@ -34,11 +29,6 @@
         android:textSize="17dp"
         android:paddingTop="10dp"
         android:paddingBottom="4dp" />
-    <TextView
-        android:id="@+id/TvDetailTagReserved"
-        android:background="@color/gray"
-        android:layout_width="match_parent"
-        android:layout_height="0.25dp"/>
 
     <TextView
         android:id="@+id/TvDetailTagEpc"
@@ -50,9 +40,48 @@
         android:paddingBottom="4dp" />
     <TextView
         android:id="@+id/TvDetailTagUser"
-        android:background="@color/gray"
-        android:layout_width="match_parent"
-        android:layout_height="0.25dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/TvDetailTagMemoryBank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/TvDetailTagAntennaId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/TvDetailTagCrc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/TvDetailTagEventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
 
 <!--    <Button-->
 <!--        android:id="@+id/BtClear"-->

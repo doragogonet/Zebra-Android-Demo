@@ -16,10 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
 import com.zebra.demo.bean.HistoryData;
+import com.zebra.demo.tools.CSVOperator;
 import com.zebra.demo.tools.StringUtils;
+import com.zebra.rfid.api3.TagData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InventoryHistoryActivity extends AppCompatActivity {
 
@@ -32,20 +35,28 @@ public class InventoryHistoryActivity extends AppCompatActivity {
     public static final String TAG_RSSI = "tagRssi";
     public static final String TAG_COUNT = "tagCount";
     public static final String TAG_ID = "tagId";
-    public static final String TAG_PASSWORD = "tagPassword";
     public static final String TAG_EPC = "tagEpc";
     public static final String TAG_TID = "tagTid";
-    public static final String TAG_RESERVED = "tagReserved";
     public static final String TAG_USER = "tagUser";
+    public static final String TAG_MEMORY_BANK = "tagMemoryBank";
+    public static final String TAG_ANTENNA_ID = "tagAntennaId";
+    public static final String TAG_CRC = "tagCrc";
+    public static final String TAG_EVENT_TIME = "tagEventTime";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_history);
 
+        List<TagData> csvTagList = CSVOperator.readCsvFile();
+
         LvTags = findViewById(R.id.LvTags);
         adapter = new MyAdapter(getApplicationContext());
         LvTags.setAdapter(adapter);
+
+        for (TagData tag : csvTagList) {
+            this.addDataToList(tag);
+        }
 
         LvTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,18 +74,20 @@ public class InventoryHistoryActivity extends AppCompatActivity {
 
     }
 
-    private void addDataToList(HistoryData data) {
-        if (StringUtils.isNotEmpty(data.getTagEPC())) {
+    private void addDataToList(TagData data) {
+        if (data != null) {
 
             map = new HashMap<String, String>();
-            map.put(TAG_EPC, data.getTagEPC());
-            map.put(TAG_TID, data.getTagTID());
-            map.put(TAG_RSSI, data.getTagRssi());
-            map.put(TAG_COUNT,data.getTagCount());
+            map.put(TAG_EPC, data.getMemoryBankData());
+            map.put(TAG_TID, data.getTID());
+            map.put(TAG_RSSI, String.valueOf(data.getPeakRSSI()));
+            map.put(TAG_COUNT,String.valueOf(data.getTagSeenCount()));
             map.put(TAG_ID,data.getTagID());
-            map.put(TAG_PASSWORD,data.getTagPssword());
-            map.put(TAG_RESERVED,data.getTagReserved());
-            map.put(TAG_USER,data.getTagUser());
+            map.put(TAG_USER,data.getUser());
+            map.put(TAG_MEMORY_BANK,data.getMemoryBank().toString());
+            map.put(TAG_ANTENNA_ID,String.valueOf(data.getAntennaID()));
+            map.put(TAG_CRC,data.getStringCRC());
+            map.put(TAG_EVENT_TIME,data.getTagEventTimeStamp().ConvertTimetoDate());
 
             tagList.add(map);
 
@@ -86,14 +99,16 @@ public class InventoryHistoryActivity extends AppCompatActivity {
     private int  selectItem = -1;
     public final class ViewHolder {
         public TextView tvTagID;
-        public TextView tvTagPssword;
         public TextView tvTagEPC;
         public TextView tvTagTID;
-        public TextView tvTagReserved;
         public TextView tvTagUser;
         public TextView tvTagCount;
         public TextView tvTagRssi;
         public TextView tvItemId;
+        public TextView tvTagMemoryBank;
+        public TextView tvTagAntennaId;
+        public TextView tvTagCrc;
+        public TextView tvTagEventTime;
     }
     public class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
@@ -121,13 +136,15 @@ public class InventoryHistoryActivity extends AppCompatActivity {
                 convertView = mInflater.inflate(R.layout.listtag_items, null);
                 holder.tvItemId = (TextView) convertView.findViewById(R.id.TvItemId);
                 holder.tvTagID = (TextView) convertView.findViewById(R.id.TvTagID);
-                holder.tvTagPssword = (TextView) convertView.findViewById(R.id.TvTagPassword);
                 holder.tvTagEPC = (TextView) convertView.findViewById(R.id.TvTagEPC);
                 holder.tvTagTID = (TextView) convertView.findViewById(R.id.TvTagTID);
-                holder.tvTagReserved = (TextView) convertView.findViewById(R.id.TvTagReserved);
                 holder.tvTagUser = (TextView) convertView.findViewById(R.id.TvTagUser);
                 holder.tvTagCount = (TextView) convertView.findViewById(R.id.TvTagCount);
                 holder.tvTagRssi = (TextView) convertView.findViewById(R.id.TvTagRssi);
+                holder.tvTagMemoryBank = (TextView) convertView.findViewById(R.id.TvTagMemoryBank);
+                holder.tvTagAntennaId = (TextView) convertView.findViewById(R.id.TvTagAntennaId);
+                holder.tvTagCrc = (TextView) convertView.findViewById(R.id.TvTagCrc);
+                holder.tvTagEventTime = (TextView) convertView.findViewById(R.id.TvTagEventTime);
 
                 convertView.setTag(holder);
             } else {
@@ -135,13 +152,15 @@ public class InventoryHistoryActivity extends AppCompatActivity {
             }
             holder.tvItemId.setText(String.valueOf((position + 1)));
             holder.tvTagID.setText((String) tagList.get(position).get(TAG_ID));
-            holder.tvTagPssword.setText((String) tagList.get(position).get(TAG_PASSWORD));
             holder.tvTagEPC.setText((String) tagList.get(position).get(TAG_EPC));
             holder.tvTagTID.setText((String) tagList.get(position).get(TAG_TID));
-            holder.tvTagReserved.setText((String) tagList.get(position).get(TAG_RESERVED));
             holder.tvTagUser.setText((String) tagList.get(position).get(TAG_USER));
             holder.tvTagCount.setText((String) tagList.get(position).get(TAG_COUNT));
             holder.tvTagRssi.setText((String) tagList.get(position).get(TAG_RSSI));
+            holder.tvTagMemoryBank.setText((String) tagList.get(position).get(TAG_MEMORY_BANK));
+            holder.tvTagAntennaId.setText((String) tagList.get(position).get(TAG_ANTENNA_ID));
+            holder.tvTagCrc.setText((String) tagList.get(position).get(TAG_CRC));
+            holder.tvTagEventTime.setText((String) tagList.get(position).get(TAG_EVENT_TIME));
 
             if (position == selectItem) {
                 convertView.setBackgroundColor(myContext.getResources().getColor(R.color.lfile_colorPrimary));
@@ -153,7 +172,7 @@ public class InventoryHistoryActivity extends AppCompatActivity {
         }
         public  void setSelectItem(int select) {
             if(selectItem == select){
-                selectItem=-1;
+                selectItem = -1;
             }else {
                 selectItem = select;
             }
