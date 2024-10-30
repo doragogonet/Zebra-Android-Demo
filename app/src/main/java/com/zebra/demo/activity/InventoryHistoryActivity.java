@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,8 @@ import java.util.List;
 public class InventoryHistoryActivity extends AppCompatActivity {
 
     ListView LvTags;
+
+    private ProgressBar progressBar;
 
     public ArrayList<HashMap<String, String>> tagList = new ArrayList<HashMap<String, String>>();
     private HashMap<String, String> map;
@@ -48,6 +51,9 @@ public class InventoryHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_history);
 
+        progressBar = findViewById(R.id.progressBar);
+        showLoading();
+
         List<TagData> csvTagList = CSVOperator.readCsvFile();
 
         LvTags = findViewById(R.id.LvTags);
@@ -57,6 +63,8 @@ public class InventoryHistoryActivity extends AppCompatActivity {
         for (TagData tag : csvTagList) {
             this.addDataToList(tag);
         }
+
+        hideLoading();
 
         LvTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -178,6 +186,14 @@ public class InventoryHistoryActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
     }
 
 }

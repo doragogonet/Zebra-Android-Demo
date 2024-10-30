@@ -5,6 +5,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/LvTags"
         android:layout_width="fill_parent"

@@ -52,12 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <!-- RSSIリスト -->
-        <ListView
-            android:id="@+id/lvRSSI"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
     </LinearLayout>
 
     <!-- 開始・終了ボタン -->

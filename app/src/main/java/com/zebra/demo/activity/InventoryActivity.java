@@ -1,8 +1,12 @@
 package com.zebra.demo.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -11,23 +15,33 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
+import com.zebra.demo.base.BarChartView;
+import com.zebra.demo.base.LineChartData;
 import com.zebra.demo.tools.CSVOperator;
 import com.zebra.rfid.api3.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class InventoryActivity extends AppCompatActivity {
 
     private RFIDReader reader;
     private TextView tvTagCount;
-    private ListView lvEPC, lvRSSI;
+    private ListView lvEPC;
     private Button btnStart, btnStop, btnFilter;
     private SeekBar sbPower;
     private int tagCount = 0;
     private ArrayList<String> epcList = new ArrayList<>();
-    private ArrayList<String> rssiList = new ArrayList<>();
-    private List<TagData> tagList = new ArrayList<TagData>();
+    private List<TagData> historyTagList = new ArrayList<TagData>();
+    public ArrayList<HashMap<String, String>> tagList = new ArrayList<HashMap<String, String>>();
+
+    public static final String TAG_RSSI = "tagRssi";
+    public static final String TAG_COUNT = "tagCount";
+    public static final String TAG_EPC = "tagEpc";
+
+    private HashMap<String, String> map;
+    InventoryActivity.MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +51,13 @@ public class InventoryActivity extends AppCompatActivity {
         // UI要素の初期化
         tvTagCount = findViewById(R.id.tvTagCount);
         lvEPC = findViewById(R.id.lvEPC);
-        lvRSSI = findViewById(R.id.lvRSSI);
         btnStart = findViewById(R.id.btnStart);
         btnStop = findViewById(R.id.btnStop);
         sbPower = findViewById(R.id.sbPower);
         btnFilter = findViewById(R.id.btnFilter);
+
+        adapter = new InventoryActivity.MyAdapter(getApplicationContext());
+        lvEPC.setAdapter(adapter);
 
         // RFIDリーダーの初期化
         initializeRFIDReader();
@@ -112,14 +128,18 @@ public class InventoryActivity extends AppCompatActivity {
                     TagData[] tags = reader.Actions.getReadTags(100);
                     if (tags != null) {
                         for (TagData tag : tags) {
-                            tagList.add(tag);
-                            epcList.add(tag.getTagID());
-                            rssiList.add(String.valueOf(tag.getPeakRSSI()));
+                            if (!tag.getTagID().contains(tag.getTagID())) { //重複のEPCを飛び出す
+                                historyTagList.add(tag);    //履歴リストに追加
+                                // EPCのリストを更新
+                                epcList.add(tag.getTagID());
+                                // 適切なアダプタを使用してListViewを更新する必要があります
+                                setDataToList(tag, true);
+                            } else {
+                                setDataToList(tag, false);
+                            }
                             tagCount++;
                             runOnUiThread(() -> {
                                 tvTagCount.setText(String.valueOf(tagCount));
-                                // EPCとRSSIのリストを更新
-                                // 適切なアダプタを使用してListViewを更新する必要があります
                             });
                         }
                     }
@@ -138,7 +158,8 @@ public class InventoryActivity extends AppCompatActivity {
     // インベントリの開始
     private void startInventory() {
         try {
-            this.tagList.clear();
+            this.epcList.clear();
+            this.historyTagList.clear();
             reader.Actions.Inventory.perform();
             Toast.makeText(this, "インベントリ開始", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
@@ -151,9 +172,11 @@ public class InventoryActivity extends AppCompatActivity {
         try {
             reader.Actions.Inventory.stop();
             Toast.makeText(this, "インベントリ終了", Toast.LENGTH_SHORT).show();
-            if (this.tagList.size() > 0) {
-                CSVOperator.writeToCsvFile(this.tagList);
+            if (this.historyTagList.size() > 0) {
+                CSVOperator.writeToCsvFile(this.historyTagList);
             }
+            this.historyTagList.clear();
+            this.epcList.clear();
         } catch (Exception e) {
             Toast.makeText(this, "インベントリ終了に失敗しました", Toast.LENGTH_SHORT).show();
         }
@@ -177,6 +200,84 @@ public class InventoryActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "パワー設定に失敗しました", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void setDataToList(TagData data, boolean isNew) {
+        if (data != null) {
+            if (isNew) {
+                map = new HashMap<String, String>();
+                map.put(TAG_EPC, data.getMemoryBankData());
+                map.put(TAG_RSSI, String.valueOf(data.getPeakRSSI()));
+                map.put(TAG_COUNT, String.valueOf(data.getTagSeenCount()));
+
+                this.tagList.add(map);
+            } else {
+                for (HashMap iMap : this.tagList) {
+                    if (iMap.get(TAG_EPC).equals(data.getTagID())) {
+                        long count = Long.valueOf(String.valueOf(iMap.get(TAG_COUNT))) + 1;
+                        iMap.put(TAG_COUNT, String.valueOf(count));
+                        iMap.put(TAG_RSSI, String.valueOf(data.getPeakRSSI()));
+                        break;
+                    }
+                }
+            }
+            adapter.notifyDataSetChanged();
+
+        }
+    }
+
+    public final class ViewHolder {
+        public TextView tvTagEPC;
+        public TextView tvTagCount;
+        public BarChartView tvTagRssi;
+        public TextView tvItemId;
+    }
+    public class MyAdapter extends BaseAdapter {
+        private LayoutInflater mInflater;
+        Context myContext;
+        public MyAdapter(Context context) {
+            myContext = context;
+            this.mInflater = LayoutInflater.from(context);
+        }
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return tagList.size();
+        }
+        public Object getItem(int arg0) {
+            // TODO Auto-generated method stub
+            return tagList.get(arg0);
+        }
+        public long getItemId(int arg0) {
+            // TODO Auto-generated method stub
+            return arg0;
+        }
+        public View getView(int position, View convertView, ViewGroup parent) {
+            InventoryActivity.ViewHolder holder = null;
+            if (convertView == null) {
+                holder = new InventoryActivity.ViewHolder();
+                convertView = mInflater.inflate(R.layout.inventory_listtag_items, null);
+                holder.tvItemId = (TextView) convertView.findViewById(R.id.TvInventoryItemId);
+                holder.tvTagEPC = (TextView) convertView.findViewById(R.id.TvInventoryTagEPC);
+                holder.tvTagCount = (TextView) convertView.findViewById(R.id.TvInventoryTagCount);
+                holder.tvTagRssi = (BarChartView) convertView.findViewById(R.id.TvInventoryTagRssi);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (InventoryActivity.ViewHolder) convertView.getTag();
+            }
+            holder.tvItemId.setText(String.valueOf((position + 1)));
+            holder.tvTagEPC.setText((String) tagList.get(position).get(TAG_EPC));
+            holder.tvTagCount.setText((String) tagList.get(position).get(TAG_COUNT));
+            //todo パラメターがまだ確定できない
+            LineChartData line = new LineChartData();
+            line.setRecover_complete(100);
+            int rssi = ((int)Float.parseFloat(tagList.get(position).get(TAG_RSSI)) * -1);
+            line.setRecover_uncomplete(100 - rssi);
+            holder.tvTagRssi.setData(0, rssi, 100, line);
+
+            return convertView;
+        }
+
     }
 }
 
