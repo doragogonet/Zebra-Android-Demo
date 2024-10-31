@@ -23,6 +23,7 @@ import com.zebra.rfid.api3.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -128,14 +129,10 @@ public class InventoryActivity extends AppCompatActivity {
                     TagData[] tags = reader.Actions.getReadTags(100);
                     if (tags != null) {
                         for (TagData tag : tags) {
-                            if (!tag.getTagID().contains(tag.getTagID())) { //重複のEPCを飛び出す
+                            if (setDataToList(tag)) {
                                 historyTagList.add(tag);    //履歴リストに追加
                                 // EPCのリストを更新
                                 epcList.add(tag.getTagID());
-                                // 適切なアダプタを使用してListViewを更新する必要があります
-                                setDataToList(tag, true);
-                            } else {
-                                setDataToList(tag, false);
                             }
                             tagCount++;
                             runOnUiThread(() -> {
@@ -172,8 +169,8 @@ public class InventoryActivity extends AppCompatActivity {
         try {
             reader.Actions.Inventory.stop();
             Toast.makeText(this, "インベントリ終了", Toast.LENGTH_SHORT).show();
-            if (this.historyTagList.size() > 0) {
-                CSVOperator.writeToCsvFile(this.historyTagList);
+            if (!this.historyTagList.isEmpty()) {
+                CSVOperator.writeToCsvFile(this.historyTagList, getApplicationContext());
             }
             this.historyTagList.clear();
             this.epcList.clear();
@@ -202,28 +199,30 @@ public class InventoryActivity extends AppCompatActivity {
         }
     }
 
-    private void setDataToList(TagData data, boolean isNew) {
+    private boolean setDataToList(TagData data) {
         if (data != null) {
-            if (isNew) {
+            if (!this.epcList.contains(data.getTagID())) {
                 map = new HashMap<String, String>();
                 map.put(TAG_EPC, data.getMemoryBankData());
                 map.put(TAG_RSSI, String.valueOf(data.getPeakRSSI()));
                 map.put(TAG_COUNT, String.valueOf(data.getTagSeenCount()));
 
                 this.tagList.add(map);
+                return true;
             } else {
-                for (HashMap iMap : this.tagList) {
-                    if (iMap.get(TAG_EPC).equals(data.getTagID())) {
-                        long count = Long.valueOf(String.valueOf(iMap.get(TAG_COUNT))) + 1;
+                for (Map<String, String> iMap : this.tagList) {
+                    if (data.getTagID().equals(iMap.get(TAG_EPC))) {
+                        long count = Long.parseLong(String.valueOf(iMap.get(TAG_COUNT))) + 1;
                         iMap.put(TAG_COUNT, String.valueOf(count));
                         iMap.put(TAG_RSSI, String.valueOf(data.getPeakRSSI()));
                         break;
                     }
                 }
             }
+            // 適切なアダプタを使用してListViewを更新する必要があります
             adapter.notifyDataSetChanged();
-
         }
+        return false;
     }
 
     public final class ViewHolder {

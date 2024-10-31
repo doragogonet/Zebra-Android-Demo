@@ -54,7 +54,7 @@ public class InventoryHistoryActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         showLoading();
 
-        List<TagData> csvTagList = CSVOperator.readCsvFile();
+        List<TagData> csvTagList = CSVOperator.readCsvFile(getApplicationContext());
 
         LvTags = findViewById(R.id.LvTags);
         adapter = new MyAdapter(getApplicationContext());
