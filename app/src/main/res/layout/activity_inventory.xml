@@ -38,6 +38,47 @@
         android:layout_height="wrap_content"
         android:max="29" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="left"
+            android:text="NO" />
+
+        <TextView
+            android:layout_width="110dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="EPC" />
+
+        <TextView
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="COUNT" />
+
+        <TextView
+            android:layout_width="175dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="left"
+            android:text="RSSI" />
+
+    </LinearLayout>
+
     <!-- EPCとRSSIリスト -->
     <LinearLayout
         android:layout_width="match_parent"

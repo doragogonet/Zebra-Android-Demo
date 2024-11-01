@@ -44,6 +44,8 @@ public class InventoryActivity extends AppCompatActivity {
     private HashMap<String, String> map;
     InventoryActivity.MyAdapter adapter;
 
+    String[] nameList = {"№", "EPC", "COUNT", "RSSI"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,7 +214,7 @@ public class InventoryActivity extends AppCompatActivity {
             } else {
                 for (Map<String, String> iMap : this.tagList) {
                     if (data.getTagID().equals(iMap.get(TAG_EPC))) {
-                        long count = Long.parseLong(String.valueOf(iMap.get(TAG_COUNT))) + 1;
+                        long count = Long.parseLong(String.valueOf(iMap.get(TAG_COUNT))) + data.getTagSeenCount();
                         iMap.put(TAG_COUNT, String.valueOf(count));
                         iMap.put(TAG_RSSI, String.valueOf(data.getPeakRSSI()));
                         break;
@@ -224,6 +226,42 @@ public class InventoryActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    //test用
+//    private void setDataToList(TagData td) {
+//        if (td == null) {
+//            map = new HashMap<String, String>();
+//            map.put(TAG_EPC, "1234567890");
+//            map.put(TAG_RSSI, String.valueOf(-40));
+//            map.put(TAG_COUNT, String.valueOf(1));
+//
+//            this.tagList.add(map);
+//
+//            map = new HashMap<String, String>();
+//            map.put(TAG_EPC, "1234567891");
+//            map.put(TAG_RSSI, String.valueOf(-30));
+//            map.put(TAG_COUNT, String.valueOf(22));
+//
+//            this.tagList.add(map);
+//            map = new HashMap<String, String>();
+//            map.put(TAG_EPC, "1234567892");
+//            map.put(TAG_RSSI, String.valueOf(-20));
+//            map.put(TAG_COUNT, String.valueOf(66));
+//
+//            this.tagList.add(map);
+//        } else {
+//            for (Map<String, String> iMap : this.tagList) {
+//                if ("1234567890".equals(iMap.get(TAG_EPC))) {
+//                    long count = Long.parseLong(String.valueOf(iMap.get(TAG_COUNT))) + 1;
+//                    iMap.put(TAG_COUNT, String.valueOf(count));
+//                    iMap.put(TAG_RSSI, String.valueOf(-30));
+//                    break;
+//                }
+//            }
+//        }
+//        // 適切なアダプタを使用してListViewを更新する必要があります
+//        adapter.notifyDataSetChanged();
+//    }
 
     public final class ViewHolder {
         public TextView tvTagEPC;
@@ -251,6 +289,7 @@ public class InventoryActivity extends AppCompatActivity {
             return arg0;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
+
             InventoryActivity.ViewHolder holder = null;
             if (convertView == null) {
                 holder = new InventoryActivity.ViewHolder();
@@ -267,12 +306,12 @@ public class InventoryActivity extends AppCompatActivity {
             holder.tvItemId.setText(String.valueOf((position + 1)));
             holder.tvTagEPC.setText((String) tagList.get(position).get(TAG_EPC));
             holder.tvTagCount.setText((String) tagList.get(position).get(TAG_COUNT));
-            //todo パラメターがまだ確定できない
-            LineChartData line = new LineChartData();
-            line.setRecover_complete(100);
+
+//            LineChartData line = new LineChartData();
+//            line.setRecover_complete(100);
             int rssi = ((int)Float.parseFloat(tagList.get(position).get(TAG_RSSI)) * -1);
-            line.setRecover_uncomplete(100 - rssi);
-            holder.tvTagRssi.setData(0, rssi, 100, line);
+//            line.setRecover_uncomplete(100 - rssi);
+            holder.tvTagRssi.setData((100 - rssi) * 5, rssi);
 
             return convertView;
         }

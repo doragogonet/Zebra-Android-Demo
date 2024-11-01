@@ -14,7 +14,9 @@ public class BarChartView extends View {
 
     private Paint barPaint;
     private LineChartData mData;
-    private int mTextW, mChartH, mMaxV;
+    private int barChartRssi;
+
+    private int rssi;
 
     public BarChartView(Context context) {
         super(context);
@@ -47,46 +49,55 @@ public class BarChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (mData == null) {
-            return;
-        }
+//        if (mData == null) {
+//            return;
+//        }
 
-        this.drawText(canvas, mData.getName());
+        //this.drawText(canvas, mData.getName());
 
         this.drawLine(canvas);
+
+        this.drawText(canvas);
     }
 
     private void drawLine(Canvas canvas) {
-        double chart_length = (getWidth() - mTextW) / (double) mMaxV;
-        int start_complete_left = mTextW + 10,
-        start_complete_top = 4,
-        start_complete_right = start_complete_left + (int) (chart_length * mData.getRecover_complete())- dip2px(getContext(), 6),
-        start_uncomplete_right = start_complete_left + (int) (chart_length * (mData.getRecover_complete() + mData.getRecover_uncomplete()))- dip2px(getContext(), 6);
+//        double chart_length = (getWidth() - mTextW) / (double) mMaxV;
+//        int start_complete_left = mTextW + 10,
+//        start_complete_top = 5,
+//        start_complete_right = start_complete_left + (int) (chart_length * mData.getRecover_complete())- dip2px(getContext(), 6),
+//        start_uncomplete_right = start_complete_left + (int) (chart_length * (mData.getRecover_complete() + mData.getRecover_uncomplete()))- dip2px(getContext(), 6);
+//
+//        Log.e("TAG", start_complete_left + "..." + start_complete_top + ",,," + start_complete_right + "ds"
+//                + start_uncomplete_right);
 
-        Log.e("TAG", start_complete_left + "..." + start_complete_top + ",,," + start_complete_right + "ds"
-                + start_uncomplete_right);
+        //canvas.drawRect(start_complete_left, start_complete_top, start_uncomplete_right, mChartH, barPaint);
 
-        canvas.drawRect(start_complete_left, start_complete_top, start_uncomplete_right, mChartH, barPaint);
-
-        this.barPaint.setColor(Color.YELLOW);
-        canvas.drawRect(start_complete_left, start_complete_top, start_complete_right, mChartH, barPaint);
+        //this.barPaint.setColor(Color.YELLOW);
+        //canvas.drawRect(start_complete_left, start_complete_top, start_complete_right, mChartH, barPaint);
+        canvas.drawRect(10, 10, this.barChartRssi, 50, this.barPaint);
     }
 
-
-    private void drawText(Canvas canvas, String text) {
-        int x = getWidth();
-        int y = getHeight();
-
+    private void drawText(Canvas canvas) {
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(dip2px(getContext(), 16));
-        // 设置文字右对齐
-        textPaint.setTextAlign(Paint.Align.RIGHT);
-        float tX = (x - getFontlength(textPaint, text)) / 2;
-        float tY = (y - getFontHeight(textPaint)) / 2 + getFontLeading(textPaint);
-        // 注意第二个参数，右对齐，文字是从右开始写的，那么  x 就是对齐处的X坐标
-        canvas.drawText(text, mTextW, tY, textPaint);
+        textPaint.setTextSize(dip2px(getContext(), 10));
+        canvas.drawText(String.valueOf(this.rssi), 15, 40, textPaint);
     }
+
+//    private void drawText(Canvas canvas, String text) {
+//        int x = getWidth();
+//        int y = getHeight();
+//
+//        Paint textPaint = new Paint();
+//        textPaint.setColor(Color.WHITE); 
+//        textPaint.setTextSize(dip2px(getContext(), 16));
+//
+//        textPaint.setTextAlign(Paint.Align.RIGHT);
+//        float tX = (x - getFontlength(textPaint, text)) / 2;
+//        float tY = (y - getFontHeight(textPaint)) / 2 + getFontLeading(textPaint);
+//
+//        canvas.drawText(text, mTextW, tY, textPaint);
+//    }
 
 
     public static float getFontlength(Paint paint, String str) {
@@ -105,12 +116,10 @@ public class BarChartView extends View {
         return fm.leading - fm.ascent;
     }
 
-    public void setData(int textW, int chartW, int max_valur, LineChartData data) {
-        Log.e("TAG", max_valur + "...max");
-        this.mTextW = textW;
-        this.mChartH = chartW;
-        this.mMaxV = max_valur;
-        this.mData = data;
+    public void setData(int barChartRssi, int rssi) {
+
+        this.barChartRssi = barChartRssi;
+        this.rssi = rssi;
         this.postInvalidate();
     }
 
