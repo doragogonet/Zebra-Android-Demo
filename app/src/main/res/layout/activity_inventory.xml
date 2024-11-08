@@ -32,11 +32,26 @@
         android:text="Power"
         android:layout_marginTop="8dp" />
 
-    <SeekBar
-        android:id="@+id/sbPower"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="29" />
+        android:orientation="horizontal">
+
+        <SeekBar
+            android:id="@+id/inSbPower"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:min="10"
+            android:max="290"
+            android:progress="0" />
+
+        <TextView
+            android:id="@+id/inTvPower"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -90,7 +105,7 @@
         <ListView
             android:id="@+id/lvEPC"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:layout_weight="1" />
 
     </LinearLayout>

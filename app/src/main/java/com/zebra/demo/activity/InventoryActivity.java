@@ -25,13 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InventoryActivity extends AppCompatActivity {
+public class InventoryActivity extends BaseActivity {
 
     private RFIDReader reader;
     private TextView tvTagCount;
     private ListView lvEPC;
     private Button btnStart, btnStop, btnFilter;
-    private SeekBar sbPower;
+    private SeekBar inSbPower;
+
+    private TextView inTvPower;
     private int tagCount = 0;
     private ArrayList<String> epcList = new ArrayList<>();
     private List<TagData> historyTagList = new ArrayList<TagData>();
@@ -56,7 +58,8 @@ public class InventoryActivity extends AppCompatActivity {
         lvEPC = findViewById(R.id.lvEPC);
         btnStart = findViewById(R.id.btnStart);
         btnStop = findViewById(R.id.btnStop);
-        sbPower = findViewById(R.id.sbPower);
+        inSbPower = findViewById(R.id.inSbPower);
+        inTvPower = findViewById(R.id.inTvPower);
         btnFilter = findViewById(R.id.btnFilter);
 
         adapter = new InventoryActivity.MyAdapter(getApplicationContext());
@@ -93,9 +96,10 @@ public class InventoryActivity extends AppCompatActivity {
         });
 
         // パワースライダーの変更イベント
-        sbPower.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        inSbPower.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                inTvPower.setText(String.valueOf((float)progress / 10));
                 setReaderPower(progress);
             }
 
@@ -311,7 +315,7 @@ public class InventoryActivity extends AppCompatActivity {
 //            line.setRecover_complete(100);
             int rssi = ((int)Float.parseFloat(tagList.get(position).get(TAG_RSSI)) * -1);
 //            line.setRecover_uncomplete(100 - rssi);
-            holder.tvTagRssi.setData((100 - rssi) * 5, rssi);
+            holder.tvTagRssi.setData((100 - rssi) * 5, tagList.get(position).get(TAG_RSSI));
 
             return convertView;
         }

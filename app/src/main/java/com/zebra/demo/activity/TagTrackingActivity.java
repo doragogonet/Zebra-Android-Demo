@@ -1,6 +1,7 @@
 package com.zebra.demo.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
+import com.zebra.demo.base.VerticalProgressBar;
 import com.zebra.rfid.api3.*;
 
 /*********************************************************************************
@@ -17,7 +19,7 @@ TagLocationingは、タグのRSSI値だけでなく、RFIDリーダーのビー�
 して、特定のタグの位置をより正確に特定することができます。
 *********************************************************************************/
 
-public class TagTrackingActivity extends AppCompatActivity {
+public class TagTrackingActivity extends BaseActivity {
 
     private EditText etEPCCode;
     private ProgressBar progressBar;
@@ -26,6 +28,11 @@ public class TagTrackingActivity extends AppCompatActivity {
     private boolean isTracking = false;
     private String targetEPC;  // 指定されたEPCコード
 
+    private VerticalProgressBar vpProgressBar;
+    private ProgressBar verticalProgressBar;
+    private int progressStatus = 0;
+    private Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +40,12 @@ public class TagTrackingActivity extends AppCompatActivity {
 
         // UI要素の初期化
         etEPCCode = findViewById(R.id.etEPCCode);
-        progressBar = findViewById(R.id.progressBar);
+        //progressBar = findViewById(R.id.progressBar);
         btnStartTracking = findViewById(R.id.btnStartTracking);
         btnStopTracking = findViewById(R.id.btnStopTracking);
+
+        vpProgressBar = (VerticalProgressBar) findViewById(R.id.vp_progress);
+        //verticalProgressBar = findViewById(R.id.verticalProgressBar);
 
         // SettingsActivityで接続されたリーダーを取得
         reader = RFIDReaderManager.getInstance().getReader();
@@ -63,6 +73,44 @@ public class TagTrackingActivity extends AppCompatActivity {
                 stopTagLocationing();
             }
         });
+
+//        // プログレスバーの進行状況を更新するスレッド
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (progressStatus < 100) {
+//                    progressStatus++;
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            verticalProgressBar.setProgress(progressStatus);
+//                        }
+//                    });
+//                    try {
+//                        Thread.sleep(100); // 進行スピードを調整
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
+        run();
+    }
+
+    private void run() {
+        new Thread(){
+            public void run() {
+                try {
+                    for (int i= 0;i<=100;i++) {
+                        Thread.sleep(50);//休息50毫秒
+                        vpProgressBar.setProgress(i);//更新进度条进度
+                        //updateProgressBar(i);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+        }.start();
     }
 
     // リーダーイベントリスナーの追加

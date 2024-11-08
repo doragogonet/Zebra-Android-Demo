@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="0dp" >
+
+    <TextView
+        android:id="@+id/TvFilterItemId"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/TvFilterNumber"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/TvFilterData"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/TvFilterMemoryBank"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/TvFilterOffset"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/TvFilterLength"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/TvFilterAction"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/TvFilterTarget"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/TvFilterDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_delete" />
+
+</LinearLayout>

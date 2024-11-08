@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#D3D3D3"/>
+            <size android:width="50dp" android:height="200dp"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <solid android:color="#0000FF"/>
+                <size android:width="50dp" android:height="200dp"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

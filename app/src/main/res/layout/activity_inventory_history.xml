@@ -12,6 +12,40 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:paddingLeft="5dp"
+            android:gravity="left"
+            android:text="NO" />
+
+        <TextView
+            android:layout_width="150dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="EPC" />
+
+        <TextView
+            android:layout_width="175dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="left"
+            android:text="RSSI" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/LvTags"
         android:layout_width="fill_parent"

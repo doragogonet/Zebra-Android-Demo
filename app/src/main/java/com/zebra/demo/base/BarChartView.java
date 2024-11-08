@@ -16,7 +16,7 @@ public class BarChartView extends View {
     private LineChartData mData;
     private int barChartRssi;
 
-    private int rssi;
+    private String rssi;
 
     public BarChartView(Context context) {
         super(context);
@@ -81,7 +81,7 @@ public class BarChartView extends View {
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(dip2px(getContext(), 10));
-        canvas.drawText(String.valueOf(this.rssi), 15, 40, textPaint);
+        canvas.drawText(this.rssi, 15, 40, textPaint);
     }
 
 //    private void drawText(Canvas canvas, String text) {
@@ -116,7 +116,7 @@ public class BarChartView extends View {
         return fm.leading - fm.ascent;
     }
 
-    public void setData(int barChartRssi, int rssi) {
+    public void setData(int barChartRssi, String rssi) {
 
         this.barChartRssi = barChartRssi;
         this.rssi = rssi;

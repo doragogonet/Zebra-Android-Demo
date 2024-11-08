@@ -13,19 +13,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.zebra.demo.R;
-import com.zebra.demo.bean.HistoryData;
+import com.zebra.demo.base.BarChartView;
 import com.zebra.demo.tools.CSVOperator;
-import com.zebra.demo.tools.StringUtils;
 import com.zebra.rfid.api3.TagData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class InventoryHistoryActivity extends AppCompatActivity {
+public class InventoryHistoryActivity extends BaseActivity {
 
     ListView LvTags;
 
@@ -92,10 +89,12 @@ public class InventoryHistoryActivity extends AppCompatActivity {
             map.put(TAG_COUNT,String.valueOf(data.getTagSeenCount()));
             map.put(TAG_ID,data.getTagID());
             map.put(TAG_USER,data.getUser());
-            map.put(TAG_MEMORY_BANK,data.getMemoryBank().toString());
+            //map.put(TAG_MEMORY_BANK,data.getMemoryBank().toString());
+            map.put(TAG_MEMORY_BANK,"12345678901");
             map.put(TAG_ANTENNA_ID,String.valueOf(data.getAntennaID()));
             map.put(TAG_CRC,data.getStringCRC());
-            map.put(TAG_EVENT_TIME,data.getTagEventTimeStamp().ConvertTimetoDate());
+            //map.put(TAG_EVENT_TIME,data.getTagEventTimeStamp().ConvertTimetoDate());
+            map.put(TAG_EVENT_TIME,"2024/11/03 14:30:54");
 
             tagList.add(map);
 
@@ -111,7 +110,7 @@ public class InventoryHistoryActivity extends AppCompatActivity {
         public TextView tvTagTID;
         public TextView tvTagUser;
         public TextView tvTagCount;
-        public TextView tvTagRssi;
+        public BarChartView tvTagRssi;
         public TextView tvItemId;
         public TextView tvTagMemoryBank;
         public TextView tvTagAntennaId;
@@ -141,14 +140,14 @@ public class InventoryHistoryActivity extends AppCompatActivity {
             ViewHolder holder = null;
             if (convertView == null) {
                 holder = new ViewHolder();
-                convertView = mInflater.inflate(R.layout.listtag_items, null);
+                convertView = mInflater.inflate(R.layout.history_listtag_items, null);
                 holder.tvItemId = (TextView) convertView.findViewById(R.id.TvItemId);
                 holder.tvTagID = (TextView) convertView.findViewById(R.id.TvTagID);
                 holder.tvTagEPC = (TextView) convertView.findViewById(R.id.TvTagEPC);
                 holder.tvTagTID = (TextView) convertView.findViewById(R.id.TvTagTID);
                 holder.tvTagUser = (TextView) convertView.findViewById(R.id.TvTagUser);
                 holder.tvTagCount = (TextView) convertView.findViewById(R.id.TvTagCount);
-                holder.tvTagRssi = (TextView) convertView.findViewById(R.id.TvTagRssi);
+                holder.tvTagRssi = (BarChartView) convertView.findViewById(R.id.TvHistoryTagRssi);
                 holder.tvTagMemoryBank = (TextView) convertView.findViewById(R.id.TvTagMemoryBank);
                 holder.tvTagAntennaId = (TextView) convertView.findViewById(R.id.TvTagAntennaId);
                 holder.tvTagCrc = (TextView) convertView.findViewById(R.id.TvTagCrc);
@@ -164,11 +163,13 @@ public class InventoryHistoryActivity extends AppCompatActivity {
             holder.tvTagTID.setText((String) tagList.get(position).get(TAG_TID));
             holder.tvTagUser.setText((String) tagList.get(position).get(TAG_USER));
             holder.tvTagCount.setText((String) tagList.get(position).get(TAG_COUNT));
-            holder.tvTagRssi.setText((String) tagList.get(position).get(TAG_RSSI));
             holder.tvTagMemoryBank.setText((String) tagList.get(position).get(TAG_MEMORY_BANK));
             holder.tvTagAntennaId.setText((String) tagList.get(position).get(TAG_ANTENNA_ID));
             holder.tvTagCrc.setText((String) tagList.get(position).get(TAG_CRC));
             holder.tvTagEventTime.setText((String) tagList.get(position).get(TAG_EVENT_TIME));
+
+            int rssi = ((int)Float.parseFloat(tagList.get(position).get(TAG_RSSI)) * -1);
+            holder.tvTagRssi.setData((100 - rssi) * 5, tagList.get(position).get(TAG_RSSI));
 
             if (position == selectItem) {
                 convertView.setBackgroundColor(myContext.getResources().getColor(R.color.lfile_colorPrimary));

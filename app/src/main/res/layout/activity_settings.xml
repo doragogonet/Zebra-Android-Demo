@@ -10,6 +10,13 @@
         android:padding="16dp">
 
         <!-- 接続方法の設定 -->
+        <Spinner
+            android:id="@+id/spConnectionType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/connection_types" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,18 +28,17 @@
                 android:layout_height="wrap_content"
                 android:text="接続" />
 
-            <Spinner
-                android:id="@+id/spConnectionType"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/connection_types" />
-
-            <Button
-                android:id="@+id/btnDisconnect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="切断" />
+                android:orientation="vertical"
+                android:gravity="right">
+                <Button
+                    android:id="@+id/btnDisconnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="切断" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- パワー調整スライダー -->
@@ -41,11 +47,25 @@
             android:layout_height="wrap_content"
             android:text="Power" />
 
-        <SeekBar
-            android:id="@+id/sbPower"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="29" />
+            android:layout_height="wrap_content">
+
+            <SeekBar
+                android:id="@+id/sbPower"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:min="10"
+                android:max="290"
+                android:progress="0"/>
+
+            <TextView
+                android:id="@+id/tvPower"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <!-- トリガーとイベントの設定 -->
         <TextView
@@ -66,13 +86,14 @@
                 android:layout_weight="1"
                 android:text="StartTrigger" />
 
-            <Switch
-                android:id="@+id/switchStartTrigger"
+            <Spinner
+                android:id="@+id/spStartTrigger"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/start_trigger"
+                android:gravity="end"/>
         </LinearLayout>
 
-        <!-- 他のイベント設定も同様 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,13 +105,145 @@
                 android:layout_weight="1"
                 android:text="StopTrigger" />
 
+            <Spinner
+                android:id="@+id/spStopTrigger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/stop_trigger"
+                android:gravity="end"/>
+        </LinearLayout>
+
+        <!-- 他のイベント設定 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="HandheldEvent" />
+
             <Switch
-                android:id="@+id/switchStopTrigger"
+                android:id="@+id/swHandheldEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="tachTagDataWithReadEvent" />
+
+            <Switch
+                android:id="@+id/swTagDataWithReadEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ReaderDisconnectEvent" />
+
+            <Switch
+                android:id="@+id/swReaderDisconnectEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="InfoEvent" />
+
+            <Switch
+                android:id="@+id/swInfoEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CradleEvent" />
+
+            <Switch
+                android:id="@+id/swCradleEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="BatteryEvent" />
+
+            <Switch
+                android:id="@+id/swBatteryEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="FirmwareUpdateEvent" />
+
+            <Switch
+                android:id="@+id/swFirmwareUpdateEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="HeartBeatEvent" />
+
+            <Switch
+                android:id="@+id/swHeartBeatEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- 他のイベント設定 -->
         <!-- BeeperVolume設定 -->
         <LinearLayout
             android:layout_width="match_parent"

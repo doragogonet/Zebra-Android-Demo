@@ -1,12 +1,17 @@
 package com.zebra.demo.activity;
 
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,14 +20,19 @@ import com.zebra.rfid.api3.*;
 
 import java.util.List;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     private Spinner spConnectionType, spBeeperVolume;
     private SeekBar sbPower;
-    private Switch switchStartTrigger, switchStopTrigger;
+    private TextView tvPower;
+    private Spinner spStartTrigger, spStopTrigger;
     private Button btnConnect, btnDisconnect;
     private Readers readers;
     private RFIDReader reader;
+
+    private Switch swHandheldEvent;
+
+    private ColorFilter cfThump, cfThrack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +43,28 @@ public class SettingsActivity extends AppCompatActivity {
         spConnectionType = findViewById(R.id.spConnectionType);
         spBeeperVolume = findViewById(R.id.spBeeperVolume);
         sbPower = findViewById(R.id.sbPower);
-        switchStartTrigger = findViewById(R.id.switchStartTrigger);
-        switchStopTrigger = findViewById(R.id.switchStopTrigger);
+        tvPower = findViewById(R.id.tvPower);
+        spStartTrigger = findViewById(R.id.spStartTrigger);
+        spStopTrigger = findViewById(R.id.spStopTrigger);
         btnConnect = findViewById(R.id.btnConnect);
         btnDisconnect = findViewById(R.id.btnDisconnect);
+        swHandheldEvent = findViewById(R.id.swHandheldEvent);
 
+        cfThump = swHandheldEvent.getThumbDrawable().getColorFilter();
+        cfThrack = swHandheldEvent.getTrackDrawable().getColorFilter();
+
+        swHandheldEvent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    swHandheldEvent.getThumbDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+                    swHandheldEvent.getTrackDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+                } else {
+                    swHandheldEvent.getThumbDrawable().setColorFilter(cfThump);
+                    swHandheldEvent.getTrackDrawable().setColorFilter(cfThrack);
+                }
+            }
+        });
         // 手動接続ボタンのクリックイベント
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
         sbPower.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvPower.setText(String.valueOf((float)progress / 10));
                 setReaderPower(progress);  // パワー設定
             }
 

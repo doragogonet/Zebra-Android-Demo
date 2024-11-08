@@ -11,7 +11,7 @@ import com.zebra.demo.R;
 
 import java.util.HashMap;
 
-public class DetailActivity extends FragmentActivity {
+public class DetailActivity extends BaseActivity {
 
     public static final int VISIBLE = 0;        
     public static final int INVISIBILITY = 4;   

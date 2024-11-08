@@ -36,6 +36,30 @@
         <item>SESSION S2</item>
         <item>SESSION S3</item>
     </string-array>
-    <string name="app_name">EBS-Gateway</string>
+
+    <!-- 開始トリガーのオプション -->
+    <string-array name="start_trigger">
+        <item>DISTANCE</item>
+        <item>GPI</item>
+        <item>HANDHELD</item>
+        <item>IMMEDIATE</item>
+        <item>PERIODIC</item>
+        <item>TIMELAPSE</item>
+        <item>NONE</item>
+    </string-array>
+
+    <!-- 停止トリガーのオプション -->
+    <string-array name="stop_trigger">
+        <item>DURATION</item>
+        <item>GPI</item>
+        <item>HANDHELD</item>
+        <item>IMMEDIATE</item>
+        <item>N_ATTEMPTS</item>
+        <item>NONE</item>
+        <item>TAG_OBSERVATION</item>
+        <item>TIMELAPSE</item>
+    </string-array>
+
+    <string name="app_name">Zebra-Demo</string>
     <string name="close">Close</string>
 </resources>
