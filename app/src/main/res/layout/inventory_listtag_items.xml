@@ -30,7 +30,7 @@
         android:paddingTop="1dp"
         android:paddingBottom="2dp"/>
 
-    <com.zebra.demo.base.BarChartView
+    <com.zebra.demo.view.BarChartView
         android:id="@+id/TvInventoryTagRssi"
         android:layout_width="150dip"
         android:layout_height="20dip"

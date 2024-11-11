@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
-import com.zebra.demo.base.VerticalProgressBar;
+import com.zebra.demo.base.RFIDReaderManager;
+import com.zebra.demo.view.VerticalProgressBar;
 import com.zebra.rfid.api3.*;
 
 /*********************************************************************************
@@ -24,7 +24,7 @@ public class TagTrackingActivity extends BaseActivity {
     private EditText etEPCCode;
     private ProgressBar progressBar;
     private Button btnStartTracking, btnStopTracking;
-    private RFIDReader reader;
+    //private RFIDReader reader;
     private boolean isTracking = false;
     private String targetEPC;  // 指定されたEPCコード
 

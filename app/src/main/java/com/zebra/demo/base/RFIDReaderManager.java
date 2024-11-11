@@ -1,4 +1,4 @@
-package com.zebra.demo.activity;
+package com.zebra.demo.base;
 
 import com.zebra.rfid.api3.RFIDReader;
 

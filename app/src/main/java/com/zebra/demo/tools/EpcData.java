@@ -4,7 +4,7 @@ import java.io.Serializable;
 public class EpcData implements Serializable {
 
 	 private String _code = "-";
-     private String _name = "无关标签";
+     private String _name = "-";
      private String _model = "-";
      private String _count = "-";
      private String _batch = "-";

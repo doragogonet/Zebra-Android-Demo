@@ -13,9 +13,9 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
+import com.zebra.demo.base.RFIDReaderManager;
 import com.zebra.rfid.api3.*;
 
 import java.util.List;
@@ -28,7 +28,6 @@ public class SettingsActivity extends BaseActivity {
     private Spinner spStartTrigger, spStopTrigger;
     private Button btnConnect, btnDisconnect;
     private Readers readers;
-    private RFIDReader reader;
 
     private Switch swHandheldEvent;
 
@@ -171,6 +170,8 @@ public class SettingsActivity extends BaseActivity {
                 reader = availableReaders.get(0).getRFIDReader();  // 最初の利用可能なリーダーに接続
                 reader.connect();
 
+                btnConnect.setEnabled(false);
+                btnDisconnect.setEnabled(true);
 				// シングルトンにリーダーを保存
                 RFIDReaderManager.getInstance().setReader(reader);
 
@@ -188,6 +189,8 @@ public class SettingsActivity extends BaseActivity {
         try {
             if (reader != null && reader.isConnected()) {
                 reader.disconnect();
+                btnDisconnect.setEnabled(false);
+                btnConnect.setEnabled(true);
                 Toast.makeText(this, "リーダーが切断されました", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "リーダーが接続されていません", Toast.LENGTH_SHORT).show();

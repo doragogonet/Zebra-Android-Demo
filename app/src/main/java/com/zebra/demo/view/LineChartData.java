@@ -1,4 +1,4 @@
-package com.zebra.demo.base;
+package com.zebra.demo.view;
 
 public class LineChartData {
 

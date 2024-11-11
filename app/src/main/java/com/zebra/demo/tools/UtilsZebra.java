@@ -1,5 +1,6 @@
 package com.zebra.demo.tools;
 
+import com.zebra.demo.R;
 import com.zebra.rfid.api3.MEMORY_BANK;
 import com.zebra.rfid.api3.STATE_AWARE_ACTION;
 import com.zebra.rfid.api3.TARGET;

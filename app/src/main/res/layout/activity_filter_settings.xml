@@ -78,14 +78,29 @@
                 android:entries="@array/target_options" />
         </LinearLayout>
 
-        <!-- 追加ボタン -->
-        <Button
-            android:id="@+id/btnAddFilter"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="追加"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+            <!-- 追加ボタン -->
+            <Button
+                android:id="@+id/btnAddFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="追加"
+                android:layout_gravity="center"/>
+
+            <!-- 設定ボタン -->
+            <Button
+                android:id="@+id/btnSetFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="設定"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"

@@ -10,6 +10,33 @@ public class FilterInfo implements Serializable {
      private String filterLength = "";
      private String filterAction = "";
      private String filterTarget = "";
+	private int filterMemoryBankSelection;
+	private int filterActionSelection;
+	private int filterTargetSelection;
+
+	public int getFilterMemoryBankSelection() {
+		return filterMemoryBankSelection;
+	}
+
+	public void setFilterMemoryBankSelection(int filterMemoryBankSelection) {
+		this.filterMemoryBankSelection = filterMemoryBankSelection;
+	}
+
+	public int getFilterActionSelection() {
+		return filterActionSelection;
+	}
+
+	public void setFilterActionSelection(int filterActionSelection) {
+		this.filterActionSelection = filterActionSelection;
+	}
+
+	public int getFilterTargetSelection() {
+		return filterTargetSelection;
+	}
+
+	public void setFilterTargetSelection(int filterTargetSelection) {
+		this.filterTargetSelection = filterTargetSelection;
+	}
 
 	public String getFilterNumber() {
 		return filterNumber;

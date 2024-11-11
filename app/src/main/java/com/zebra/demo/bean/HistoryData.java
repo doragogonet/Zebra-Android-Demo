@@ -1,14 +1,64 @@
 package com.zebra.demo.bean;
 
 public class HistoryData {
+    private String antennaID;
+    private String memoryBankData;
+    private String peakRSSI;
+    private String tagSeenCount;
     private String tagID;
-    private String tagPssword;
-    private String tagEPC;
-    private String tagTID;
-    private String tagReserved;
-    private String tagUser;
-    private String tagCount;
-    private String tagRssi;
+    private String TID;
+    private String user;
+    private String CRC;
+    private String tagCurrentTime;
+    private int memoryBankValue;
+
+    public String getTagCurrentTime() {
+        return tagCurrentTime;
+    }
+
+    public void setTagCurrentTime(String tagCurrentTime) {
+        this.tagCurrentTime = tagCurrentTime;
+    }
+
+    public int getMemoryBankValue() {
+        return memoryBankValue;
+    }
+
+    public void setMemoryBankValue(int memoryBankValue) {
+        this.memoryBankValue = memoryBankValue;
+    }
+
+    public String getAntennaID() {
+        return antennaID;
+    }
+
+    public void setAntennaID(String antennaID) {
+        this.antennaID = antennaID;
+    }
+
+    public String getMemoryBankData() {
+        return memoryBankData;
+    }
+
+    public void setMemoryBankData(String memoryBankData) {
+        this.memoryBankData = memoryBankData;
+    }
+
+    public String getPeakRSSI() {
+        return peakRSSI;
+    }
+
+    public void setPeakRSSI(String peakRSSI) {
+        this.peakRSSI = peakRSSI;
+    }
+
+    public String getTagSeenCount() {
+        return tagSeenCount;
+    }
+
+    public void setTagSeenCount(String tagSeenCount) {
+        this.tagSeenCount = tagSeenCount;
+    }
 
     public String getTagID() {
         return tagID;
@@ -18,59 +68,27 @@ public class HistoryData {
         this.tagID = tagID;
     }
 
-    public String getTagPssword() {
-        return tagPssword;
+    public String getTID() {
+        return TID;
     }
 
-    public void setTagPssword(String tagPssword) {
-        this.tagPssword = tagPssword;
+    public void setTID(String TID) {
+        this.TID = TID;
     }
 
-    public String getTagEPC() {
-        return tagEPC;
+    public String getUser() {
+        return user;
     }
 
-    public void setTagEPC(String tagEPC) {
-        this.tagEPC = tagEPC;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getTagTID() {
-        return tagTID;
+    public String getCRC() {
+        return CRC;
     }
 
-    public void setTagTID(String tagTID) {
-        this.tagTID = tagTID;
-    }
-
-    public String getTagReserved() {
-        return tagReserved;
-    }
-
-    public void setTagReserved(String tagReserved) {
-        this.tagReserved = tagReserved;
-    }
-
-    public String getTagUser() {
-        return tagUser;
-    }
-
-    public void setTagUser(String tagUser) {
-        this.tagUser = tagUser;
-    }
-
-    public String getTagCount() {
-        return tagCount;
-    }
-
-    public void setTagCount(String tagCount) {
-        this.tagCount = tagCount;
-    }
-
-    public String getTagRssi() {
-        return tagRssi;
-    }
-
-    public void setTagRssi(String tagRssi) {
-        this.tagRssi = tagRssi;
+    public void setCRC(String CRC) {
+        this.CRC = CRC;
     }
 }

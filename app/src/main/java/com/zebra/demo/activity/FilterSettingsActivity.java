@@ -1,17 +1,16 @@
 package com.zebra.demo.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.demo.R;
-import com.zebra.demo.base.BarChartView;
+import com.zebra.demo.base.RFIDReaderManager;
 import com.zebra.demo.tools.FilterInfo;
+import com.zebra.demo.tools.TxtFileOperator;
 import com.zebra.demo.tools.UtilsZebra;
 import com.zebra.rfid.api3.FILTER_ACTION;
 import com.zebra.rfid.api3.MEMORY_BANK;
@@ -21,32 +20,25 @@ import com.zebra.rfid.api3.STATE_AWARE_ACTION;
 import com.zebra.rfid.api3.TARGET;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class FilterSettingsActivity extends BaseActivity {
 
     private EditText etNumber, etData, etOffset, etLength;
     private Spinner spMemoryBank, spAction, spTarget;
-    private Button btnAddFilter;
+    private Button btnAddFilter, btnSetFilter;
     private ListView lvFilters;
-    public ArrayList<FilterInfo> filterList = new ArrayList<>();   // フィルタ情報のリスト
+    public List<FilterInfo> filterList = new ArrayList<>();   // フィルタ情報のリスト
     private MyAdapter filterAdapter;
     private int memoryBankSelection;
     private int actionSelection;
     private int targetBankSelection;
     private int itemIndex = -1;
-    private String[] memoryBankArr;
-    private String[] actionArr;
-    private String[] targetArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_settings);
-
-        memoryBankArr = getResources().getStringArray(R.array.memory_bank_options);
-        actionArr = getResources().getStringArray(R.array.action_options);
-        targetArr = getResources().getStringArray(R.array.target_options);
 
         // UI要素の初期化
         etNumber = findViewById(R.id.etNumber);
@@ -57,18 +49,32 @@ public class FilterSettingsActivity extends BaseActivity {
         spAction = findViewById(R.id.spAction);
         spTarget = findViewById(R.id.spTarget);
         btnAddFilter = findViewById(R.id.btnAddFilter);
+        btnSetFilter = findViewById(R.id.btnSetFilter);
         lvFilters = findViewById(R.id.lvFilters);
 
         // フィルタリストの初期化
         filterAdapter = new MyAdapter(getApplicationContext());
         lvFilters.setAdapter(filterAdapter);
 
+        this.filterList = TxtFileOperator.readJsonFromFile(getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME, FilterInfo.class);
+        this.filterAdapter.notifyDataSetChanged();
+
+        this.setSetBtnEnable();
+
         // 追加ボタンのクリックイベント
         btnAddFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addFilter();
-				applyPreFilters();
+            }
+        });
+
+        // 追加ボタンのクリックイベント
+        btnSetFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //リーダーに設定する
+                applyPreFilters();
             }
         });
 
@@ -89,11 +95,11 @@ public class FilterSettingsActivity extends BaseActivity {
                 FilterInfo info = filterList.get(position);
                 etNumber.setText(info.getFilterNumber());
                 etData.setText(info.getFilterData());
-                spMemoryBank.setSelection(Integer.parseInt(info.getFilterMemoryBank()));
+                spMemoryBank.setSelection(info.getFilterMemoryBankSelection());
                 etOffset.setText(info.getFilterOffset());
                 etLength.setText(info.getFilterLength());
-                spAction.setSelection(Integer.parseInt(info.getFilterAction()));
-                spTarget.setSelection(Integer.parseInt(info.getFilterTarget()));
+                spAction.setSelection(info.getFilterActionSelection());
+                spTarget.setSelection(info.getFilterTargetSelection());
             }
         });
 
@@ -141,31 +147,39 @@ public class FilterSettingsActivity extends BaseActivity {
         }
 
         // フィルタ情報の追加
-        String filter = "番号: " + number + ", データ: " + data + ", メモリバンク: " + this.memoryBankSelection +
-                        ", オフセット: " + offset + ", 長さ: " + length +
-                        ", アクション: " + this.actionSelection + ", ターゲット: " + this.targetBankSelection;
+//        String filter = "番号: " + number + ", データ: " + data + ", メモリバンク: " + this.memoryBankSelection +
+//                        ", オフセット: " + offset + ", 長さ: " + length +
+//                        ", アクション: " + this.actionSelection + ", ターゲット: " + this.targetBankSelection;
 
         if (itemIndex == -1) {
             FilterInfo info = new FilterInfo();
             info.setFilterNumber(number);
             info.setFilterData(data);
             info.setFilterMemoryBank(this.getMemoryBankLabel(this.memoryBankSelection));
+            info.setFilterMemoryBankSelection(this.memoryBankSelection);
             info.setFilterOffset(offset);
             info.setFilterLength(length);
             info.setFilterAction(this.getActionLabel(this.actionSelection));
+            info.setFilterActionSelection(this.actionSelection);
             info.setFilterTarget(this.getTargetLabel(this.targetBankSelection));
+            info.setFilterTargetSelection(this.targetBankSelection);
             this.filterList.add(info);
         } else {
             FilterInfo info = this.filterList.get(itemIndex);
             info.setFilterNumber(number);
             info.setFilterData(data);
             info.setFilterMemoryBank(this.getMemoryBankLabel(this.memoryBankSelection));
+            info.setFilterMemoryBankSelection(this.memoryBankSelection);
             info.setFilterOffset(offset);
             info.setFilterLength(length);
             info.setFilterAction(this.getActionLabel(this.actionSelection));
+            info.setFilterActionSelection(this.actionSelection);
             info.setFilterTarget(this.getTargetLabel(this.targetBankSelection));
+            info.setFilterTargetSelection(this.targetBankSelection);
         }
         filterAdapter.notifyDataSetChanged();
+        TxtFileOperator.writeJsonToFile(this.filterList, getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME);
+        this.setSetBtnEnable();
 
         // 入力フィールドのクリア
         etNumber.setText("");
@@ -200,11 +214,11 @@ public class FilterSettingsActivity extends BaseActivity {
             for (FilterInfo filter : filterList) {
                 // フィルタ情報をパース
                 String data = filter.getFilterData();
-                String memoryBankIndex = filter.getFilterMemoryBank();
+                String memoryBankIndex = String.valueOf(filter.getFilterMemoryBankSelection());
                 int offset = Integer.parseInt(filter.getFilterOffset());
                 int length = Integer.parseInt(filter.getFilterLength());
-                String actionIndex = filter.getFilterAction();
-                String targetIndex = filter.getFilterTarget();
+                String actionIndex = String.valueOf(filter.getFilterActionSelection());
+                String targetIndex = String.valueOf(filter.getFilterTargetSelection());
 
                 // PreFilterオブジェクトの作成
                 PreFilters preFilters = new PreFilters();
@@ -299,6 +313,8 @@ public class FilterSettingsActivity extends BaseActivity {
                 public void onClick(View v) {
                     filterList.remove(position);
                     notifyDataSetChanged();
+                    TxtFileOperator.writeJsonToFile(filterList, getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME);
+                    setSetBtnEnable();
                 }
             });
 
@@ -307,33 +323,10 @@ public class FilterSettingsActivity extends BaseActivity {
 
     }
 
-    private String getMemoryBankLabel(int index) {
-        String label = "";
 
-        if (index < memoryBankArr.length) {
-            label = memoryBankArr[index];
-        }
 
-        return label;
+    private void setSetBtnEnable() {
+        btnSetFilter.setEnabled(!this.filterList.isEmpty());
     }
 
-    private String getActionLabel(int index) {
-        String label = "";
-
-        if (index < actionArr.length) {
-            label = actionArr[index];
-        }
-
-        return label;
-    }
-
-    private String getTargetLabel(int index) {
-        String label = "";
-
-        if (index < targetArr.length) {
-            label = targetArr[index];
-        }
-
-        return label;
-    }
 }

@@ -1,4 +1,4 @@
-package com.zebra.demo.base;
+package com.zebra.demo.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

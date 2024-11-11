@@ -18,6 +18,7 @@
 
     <!-- メモリバンクのオプション -->
     <string-array name="memory_bank_options">
+        <item>RESERVED</item>
         <item>EPC</item>
         <item>TID</item>
         <item>USER</item>
@@ -25,12 +26,27 @@
 
     <!-- アクションのオプション -->
     <string-array name="action_options">
-        <item>INV OR ASRT SL</item>
-        <item>DEASRT SL</item>
+        <item>INV_A_NOT_INV_B</item>
+        <item>ASRT_SL_NOT_DSRT_SL</item>
+        <item>INV_A</item>
+        <item>ASRT_SL</item>
+        <item>NOT_INV_B</item>
+        <item>NOT_DSRT_SL</item>
+        <item>INV_A2BB2A</item>
+        <item>NEG_SL</item>
+        <item>INV_B_NOT_INV_A</item>
+        <item>DSRT_SL_NOT_ASRT_SL</item>
+        <item>INV_B</item>
+        <item>DSRT_SL</item>
+        <item>NOT_INV_A</item>
+        <item>NOT_ASRT_SL</item>
+        <item>NOT_INV_A2BB2A</item>
+        <item>NOT_NEG_SL</item>
     </string-array>
 
     <!-- ターゲットのオプション -->
     <string-array name="target_options">
+        <item>SESSION SL</item>
         <item>SESSION S0</item>
         <item>SESSION S1</item>
         <item>SESSION S2</item>

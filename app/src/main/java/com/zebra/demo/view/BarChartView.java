@@ -1,14 +1,13 @@
-package com.zebra.demo.base;
+package com.zebra.demo.view;
 
-import android.content.AttributionSource;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.graphics.Paint;
 import android.content.Context;
-import android.util.Log;
+
+import com.zebra.demo.view.LineChartData;
 
 public class BarChartView extends View {
 
