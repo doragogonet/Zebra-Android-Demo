@@ -1,5 +1,7 @@
 package com.zebra.demo.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -7,21 +9,27 @@ import android.view.MenuInflater;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
 import com.zebra.demo.R;
+import com.zebra.demo.base.Constants;
 import com.zebra.demo.base.RFIDReaderManager;
+import com.zebra.demo.bean.SettingData;
 import com.zebra.rfid.api3.RFIDReader;
 
 public class BaseActivity extends AppCompatActivity {
 
     protected RFIDReader reader;
     private ActionBar actionBar;
-
     private String[] memoryBankArr;
     private String[] actionArr;
     private String[] targetArr;
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferences = getSharedPreferences(Constants.ZEBRA_EBS_STORAGE, Context.MODE_PRIVATE);
 
         memoryBankArr = getResources().getStringArray(R.array.memory_bank_options);
         actionArr = getResources().getStringArray(R.array.action_options);
@@ -35,6 +43,17 @@ public class BaseActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setIcon(R.drawable.ic_launcher);
         actionBar.setDisplayShowTitleEnabled(false);
+    }
+
+    protected void saveValue(String key, SettingData value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.ZEBRA_EBS_STORAGE_SETTING, JSON.toJSONString(value));
+        editor.apply();
+    }
+
+    protected SettingData getValue(String key) {
+        String value = sharedPreferences.getString(key , null);
+        return JSON.parseObject(value, SettingData.class);
     }
 
     protected void setHomeAsUpEnabled(boolean isShow) {

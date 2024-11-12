@@ -8,4 +8,8 @@ public class Constants {
 
     public static final String HISTORY_DATA_KEY = "historyDataKey";
 
+    public static final String ZEBRA_EBS_STORAGE = "zebra_ebs_storage";
+
+    public static final String ZEBRA_EBS_STORAGE_SETTING = "zebra_ebs_storage_setting";
+
 }

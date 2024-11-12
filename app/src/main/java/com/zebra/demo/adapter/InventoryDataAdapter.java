@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.zebra.demo.R;
+import com.zebra.demo.tools.StringUtils;
 import com.zebra.demo.view.BarChartView;
 import com.zebra.demo.bean.HistoryData;
 
@@ -53,13 +54,22 @@ public class InventoryDataAdapter extends ArrayAdapter<HistoryData> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // データを設定
-        HistoryData data = historyDatas.get(position);
-        viewHolder.tvItemId.setText(String.valueOf((position + 1)));
-        viewHolder.tvTagEPC.setText(data.getMemoryBankData());
-        viewHolder.tvTagCount.setText(data.getTagSeenCount());
-        int rssi = ((int)Float.parseFloat(data.getPeakRSSI()) * -1);
-        viewHolder.tvTagRssi.setData((100 - rssi) * 5, data.getPeakRSSI());
+        try {
+            // データを設定
+            HistoryData data = historyDatas.get(position);
+            viewHolder.tvItemId.setText(String.valueOf((position + 1)));
+            viewHolder.tvTagEPC.setText(data.getMemoryBankData());
+            viewHolder.tvTagCount.setText(data.getTagSeenCount());
+            int rssi = 100;
+            String rssiStr = "0";
+            if(StringUtils.isNotEmpty(data.getPeakRSSI())) {
+                rssi = ((int) Float.parseFloat(data.getPeakRSSI()) * -1);
+                rssiStr = data.getPeakRSSI();
+            }
+            viewHolder.tvTagRssi.setData((100 - rssi) * 5, rssiStr);
+        } catch (Exception ex) {
+
+        }
 
         return convertView;
     }

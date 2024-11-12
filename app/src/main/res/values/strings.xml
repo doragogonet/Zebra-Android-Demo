@@ -2,7 +2,7 @@
 <resources>
     <!-- 接続方法の選択肢 -->
     <string-array name="connection_types">
-        <item>自動</item>
+        <item>AUTO</item>
         <item>USB</item>
         <item>BLUETOOTH</item>
         <item>SERIAL</item>
@@ -55,25 +55,16 @@
 
     <!-- 開始トリガーのオプション -->
     <string-array name="start_trigger">
-        <item>DISTANCE</item>
-        <item>GPI</item>
-        <item>HANDHELD</item>
         <item>IMMEDIATE</item>
         <item>PERIODIC</item>
-        <item>TIMELAPSE</item>
-        <item>NONE</item>
+        <item>GPI</item>
+        <item>HANDHELD</item>
     </string-array>
 
     <!-- 停止トリガーのオプション -->
     <string-array name="stop_trigger">
-        <item>DURATION</item>
-        <item>GPI</item>
-        <item>HANDHELD</item>
         <item>IMMEDIATE</item>
-        <item>N_ATTEMPTS</item>
-        <item>NONE</item>
-        <item>TAG_OBSERVATION</item>
-        <item>TIMELAPSE</item>
+        <item>DURATION</item>
     </string-array>
 
     <string name="app_name">Zebra-Demo</string>

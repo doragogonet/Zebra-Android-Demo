@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 import com.zebra.demo.R;
+import com.zebra.demo.adapter.FilterDataAdapter;
 import com.zebra.demo.base.RFIDReaderManager;
 import com.zebra.demo.tools.FilterInfo;
 import com.zebra.demo.tools.TxtFileOperator;
@@ -28,8 +29,8 @@ public class FilterSettingsActivity extends BaseActivity {
     private Spinner spMemoryBank, spAction, spTarget;
     private Button btnAddFilter, btnSetFilter;
     private ListView lvFilters;
-    public List<FilterInfo> filterList = new ArrayList<>();   // フィルタ情報のリスト
-    private MyAdapter filterAdapter;
+    private List<FilterInfo> filterList = new ArrayList<>();   // フィルタ情報のリスト
+    private FilterDataAdapter filterAdapter;
     private int memoryBankSelection;
     private int actionSelection;
     private int targetBankSelection;
@@ -52,12 +53,11 @@ public class FilterSettingsActivity extends BaseActivity {
         btnSetFilter = findViewById(R.id.btnSetFilter);
         lvFilters = findViewById(R.id.lvFilters);
 
-        // フィルタリストの初期化
-        filterAdapter = new MyAdapter(getApplicationContext());
-        lvFilters.setAdapter(filterAdapter);
-
         this.filterList = TxtFileOperator.readJsonFromFile(getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME, FilterInfo.class);
-        this.filterAdapter.notifyDataSetChanged();
+
+        // フィルタリストの初期化
+        filterAdapter = new FilterDataAdapter(this, this.filterList);
+        lvFilters.setAdapter(filterAdapter);
 
         this.setSetBtnEnable();
 
@@ -163,7 +163,7 @@ public class FilterSettingsActivity extends BaseActivity {
             info.setFilterActionSelection(this.actionSelection);
             info.setFilterTarget(this.getTargetLabel(this.targetBankSelection));
             info.setFilterTargetSelection(this.targetBankSelection);
-            this.filterList.add(info);
+            filterAdapter.addItem(info);
         } else {
             FilterInfo info = this.filterList.get(itemIndex);
             info.setFilterNumber(number);
@@ -176,8 +176,8 @@ public class FilterSettingsActivity extends BaseActivity {
             info.setFilterActionSelection(this.actionSelection);
             info.setFilterTarget(this.getTargetLabel(this.targetBankSelection));
             info.setFilterTargetSelection(this.targetBankSelection);
+            filterAdapter.updateItem(itemIndex, info);
         }
-        filterAdapter.notifyDataSetChanged();
         TxtFileOperator.writeJsonToFile(this.filterList, getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME);
         this.setSetBtnEnable();
 
@@ -194,6 +194,19 @@ public class FilterSettingsActivity extends BaseActivity {
         itemIndex = -1;
     }
 
+    public void initInput() {
+        // 入力フィールドのクリア
+        etNumber.setText("");
+        etData.setText("");
+        etOffset.setText("");
+        etLength.setText("");
+        spMemoryBank.setSelection(0);
+        spAction.setSelection(0);
+        spTarget.setSelection(0);
+
+        btnAddFilter.setText("追加");
+        itemIndex = -1;
+    }
 
     // PreFiltersの適用
     private void applyPreFilters() {
@@ -249,83 +262,7 @@ public class FilterSettingsActivity extends BaseActivity {
         }
     }
 
-    public final class ViewHolder {
-        public TextView tvFilterNumber;
-        public TextView tvFilterData;
-        public TextView tvFilterMemoryBank;
-        public TextView tvFilterOffset;
-        public TextView tvFilterLength;
-        public TextView tvFilterAction;
-        public TextView tvFilterTarget;
-        public TextView tvFilterDelete;
-        public TextView tvFilterItemId;
-    }
-    public class MyAdapter extends BaseAdapter {
-        private LayoutInflater mInflater;
-        Context myContext;
-        public MyAdapter(Context context) {
-            myContext = context;
-            this.mInflater = LayoutInflater.from(context);
-        }
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return filterList.size();
-        }
-        public Object getItem(int arg0) {
-            // TODO Auto-generated method stub
-            return filterList.get(arg0);
-        }
-        public long getItemId(int arg0) {
-            // TODO Auto-generated method stub
-            return arg0;
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            ViewHolder holder = null;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                convertView = mInflater.inflate(R.layout.filter_listtag_items, null);
-                holder.tvFilterItemId = (TextView) convertView.findViewById(R.id.TvFilterItemId);
-                holder.tvFilterNumber = (TextView) convertView.findViewById(R.id.TvFilterNumber);
-                holder.tvFilterData = (TextView) convertView.findViewById(R.id.TvFilterData);
-                holder.tvFilterMemoryBank = (TextView) convertView.findViewById(R.id.TvFilterMemoryBank);
-                holder.tvFilterOffset = (TextView) convertView.findViewById(R.id.TvFilterOffset);
-                holder.tvFilterLength = (TextView) convertView.findViewById(R.id.TvFilterLength);
-                holder.tvFilterAction = (TextView) convertView.findViewById(R.id.TvFilterAction);
-                holder.tvFilterTarget = (TextView) convertView.findViewById(R.id.TvFilterTarget);
-                holder.tvFilterDelete = (TextView) convertView.findViewById(R.id.TvFilterDelete);
-
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            holder.tvFilterItemId.setText(String.valueOf((position + 1)));
-            holder.tvFilterNumber.setText(filterList.get(position).getFilterNumber());
-            holder.tvFilterData.setText(filterList.get(position).getFilterData());
-            holder.tvFilterMemoryBank.setText(filterList.get(position).getFilterMemoryBank());
-            holder.tvFilterOffset.setText(filterList.get(position).getFilterOffset());
-            holder.tvFilterLength.setText(filterList.get(position).getFilterLength());
-            holder.tvFilterAction.setText(filterList.get(position).getFilterAction());
-            holder.tvFilterTarget.setText(filterList.get(position).getFilterTarget());
-
-            holder.tvFilterDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    filterList.remove(position);
-                    notifyDataSetChanged();
-                    TxtFileOperator.writeJsonToFile(filterList, getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME);
-                    setSetBtnEnable();
-                }
-            });
-
-            return convertView;
-        }
-
-    }
-
-
-
-    private void setSetBtnEnable() {
+    public void setSetBtnEnable() {
         btnSetFilter.setEnabled(!this.filterList.isEmpty());
     }
 
