@@ -1,13 +1,21 @@
 package com.zebra.demo.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.alibaba.fastjson.JSON;
 import com.zebra.demo.R;
@@ -24,6 +32,8 @@ public class BaseActivity extends AppCompatActivity {
     private String[] actionArr;
     private String[] targetArr;
     private SharedPreferences sharedPreferences;
+
+    private MenuItem imgMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,7 @@ public class BaseActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setIcon(R.drawable.ic_launcher);
         actionBar.setDisplayShowTitleEnabled(false);
+
     }
 
     protected void saveValue(String key, SettingData value) {
@@ -67,6 +78,7 @@ public class BaseActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         //return super.onCreateOptionsMenu(menu);
+        imgMenuItem = menu.findItem(R.id.homeConnectLogo);
         return true;
     }
 
@@ -106,10 +118,20 @@ public class BaseActivity extends AppCompatActivity {
         return label;
     }
 
+    protected void changeRadioColor(int color) {
+        //元々のカラー：-11447983
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.radio_img_foreground, null);
+        if (drawable instanceof VectorDrawable) {
+            VectorDrawable vdc = (VectorDrawable) drawable;
+            vdc.setTint(color);
+        }
+        imgMenuItem.setIcon(drawable);
+    }
+
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {
-//            case R.id.homeLogo:
+//            case R.id.homeConnectLogo:
 //                // 当点击回首页的图标时，重定向到首页
 //                Intent intent = new Intent(this, MainActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

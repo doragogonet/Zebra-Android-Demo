@@ -1,5 +1,6 @@
 package com.zebra.demo.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -317,6 +318,7 @@ public class SettingsActivity extends BaseActivity {
                 reader.connect();
                 this.saveSetting();
                 this.setBtnEnable();
+                super.changeRadioColor(Color.GREEN);
 				// シングルトンにリーダーを保存
                 RFIDReaderManager.getInstance().setReader(reader);
 
@@ -335,6 +337,7 @@ public class SettingsActivity extends BaseActivity {
             if (reader != null && reader.isConnected()) {
                 reader.disconnect();
                 this.setBtnEnable();
+                super.changeRadioColor(-11447983);
                 Toast.makeText(this, "リーダーが切断されました", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "リーダーが接続されていません", Toast.LENGTH_SHORT).show();

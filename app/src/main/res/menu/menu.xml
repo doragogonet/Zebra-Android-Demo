@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeLogo"
-        android:icon="@drawable/ic_launcher"
+        android:id="@+id/homeConnectLogo"
+        android:icon="@drawable/radio_img_foreground"
         app:showAsAction="always"
-        android:title="入庫" />
+        android:title="" />
 
-    <item
-        android:id="@+id/search"
-        android:title=""
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/search"-->
+<!--        android:title=""-->
+<!--        app:showAsAction="always" />-->
 </menu>
