@@ -26,11 +26,6 @@
         android:backgroundTint="#ADD8E6"/>
 
     <!-- パワー調整スライダー -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Power"
-        android:layout_marginTop="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -131,4 +126,10 @@
             android:text="終了"
             android:layout_margin="8dp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="318dp"
+        android:text="TextView" />
 </LinearLayout>

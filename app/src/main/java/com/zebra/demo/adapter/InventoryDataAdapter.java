@@ -1,6 +1,7 @@
 package com.zebra.demo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.zebra.demo.bean.HistoryData;
 import java.util.List;
 
 public class InventoryDataAdapter extends ArrayAdapter<HistoryData> {
+    final static String TAG = "ZEBRA-DEMO";
 
     private List<HistoryData> historyDatas;
     private LayoutInflater inflater;
@@ -58,7 +60,7 @@ public class InventoryDataAdapter extends ArrayAdapter<HistoryData> {
             // データを設定
             HistoryData data = historyDatas.get(position);
             viewHolder.tvItemId.setText(String.valueOf((position + 1)));
-            viewHolder.tvTagEPC.setText(data.getMemoryBankData());
+            viewHolder.tvTagEPC.setText(data.getTagID());
             viewHolder.tvTagCount.setText(data.getTagSeenCount());
             int rssi = 100;
             String rssiStr = "0";
@@ -68,7 +70,7 @@ public class InventoryDataAdapter extends ArrayAdapter<HistoryData> {
             }
             viewHolder.tvTagRssi.setData((100 - rssi) * 5, rssiStr);
         } catch (Exception ex) {
-
+            Log.d(TAG, ex.getMessage());
         }
 
         return convertView;

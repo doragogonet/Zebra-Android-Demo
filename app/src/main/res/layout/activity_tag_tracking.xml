@@ -24,22 +24,21 @@
         android:id="@+id/etEPCCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="EPCコードを入力" />
+        android:hint="EPCコード" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="437dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_marginTop="50dp">
+        android:orientation="horizontal">
 
         <!-- プログレスバー -->
         <com.zebra.demo.view.VerticalProgressBar
             android:id="@+id/vp_progress"
-            android:layout_width="50dp"
-            android:layout_height="300dp"
-            android:layout_centerInParent="true"
-            />
+            android:layout_width="132dp"
+            android:layout_height="390dp"
+            android:layout_centerInParent="true" />
     </LinearLayout>
 <!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--        android:layout_width="match_parent"-->
@@ -68,25 +67,40 @@
 <!--        android:indeterminate="false"-->
 <!--        android:progressDrawable="@android:drawable/progress_horizontal" />-->
     <!-- 開始・終了ボタン -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="122dp"
         android:gravity="center"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnStartTracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="開始"
-            android:layout_margin="8dp" />
+            android:layout_margin="8dp"
+            android:text="開始" />
 
         <Button
             android:id="@+id/btnStopTracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="終了"
-            android:layout_margin="8dp" />
+            android:layout_margin="8dp"
+            android:text="終了" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="EPCCODE" />
+
 </LinearLayout>

@@ -1,15 +1,11 @@
 package com.zebra.demo.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 
 import com.zebra.demo.R;
 import com.zebra.demo.adapter.FilterDataAdapter;
-import com.zebra.demo.base.RFIDReaderManager;
 import com.zebra.demo.tools.FilterInfo;
 import com.zebra.demo.tools.TxtFileOperator;
 import com.zebra.demo.tools.UtilsZebra;
@@ -35,6 +31,8 @@ public class FilterSettingsActivity extends BaseActivity {
     private int actionSelection;
     private int targetBankSelection;
     private int itemIndex = -1;
+    private  RFIDReader reader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,7 +210,7 @@ public class FilterSettingsActivity extends BaseActivity {
     private void applyPreFilters() {
 
         // SettingsActivityで接続されたリーダーを取得
-        RFIDReader reader = RFIDReaderManager.getInstance().getReader();
+        //RFIDReader reader = RFIDReaderManager.getInstance().getReader();
 
         if (reader == null || !reader.isConnected()) {
             Toast.makeText(this, "リーダーが接続されていません", Toast.LENGTH_SHORT).show();

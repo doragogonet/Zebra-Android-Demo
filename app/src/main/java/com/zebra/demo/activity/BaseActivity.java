@@ -1,71 +1,75 @@
 package com.zebra.demo.activity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
-import com.alibaba.fastjson.JSON;
 import com.zebra.demo.R;
-import com.zebra.demo.base.Constants;
-import com.zebra.demo.base.RFIDReaderManager;
-import com.zebra.demo.bean.SettingData;
-import com.zebra.rfid.api3.RFIDReader;
 
 public class BaseActivity extends AppCompatActivity {
+    final static String TAG = "ZEBRA-DEMO";
 
-    protected RFIDReader reader;
+  //  private RFIDReader reader;
     private ActionBar actionBar;
     private String[] memoryBankArr;
     private String[] actionArr;
     private String[] targetArr;
-    private SharedPreferences sharedPreferences;
+    //private SharedPreferences sharedPreferences;
 
-    private MenuItem imgMenuItem;
+    protected  MenuItem imgMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        sharedPreferences = getSharedPreferences(Constants.ZEBRA_EBS_STORAGE, Context.MODE_PRIVATE);
+        //sharedPreferences = getSharedPreferences(Constants.ZEBRA_EBS_STORAGE, Context.MODE_PRIVATE);
 
-        memoryBankArr = getResources().getStringArray(R.array.memory_bank_options);
-        actionArr = getResources().getStringArray(R.array.action_options);
-        targetArr = getResources().getStringArray(R.array.target_options);
+       memoryBankArr = getResources().getStringArray(R.array.memory_bank_options);
+       actionArr = getResources().getStringArray(R.array.action_options);
+       targetArr = getResources().getStringArray(R.array.target_options);
 
-        this.reader = RFIDReaderManager.getInstance().getReader();
+    //   this.reader = RFIDHandler.reader;
 
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setIcon(R.drawable.ic_launcher);
-        actionBar.setDisplayShowTitleEnabled(false);
+       actionBar = getSupportActionBar();
+       actionBar.setDisplayHomeAsUpEnabled(true);
+       actionBar.setDisplayShowHomeEnabled(true);
+       actionBar.setHomeButtonEnabled(true);
+       actionBar.setIcon(R.drawable.ic_launcher);
+       actionBar.setDisplayShowTitleEnabled(false);
 
+        //メニュー更新の通知
+        if(imgMenuItem == null ){
+            invalidateOptionsMenu();
+        }
+        if (RFIDHandler.reader != null && RFIDHandler.reader.isConnected()) {
+            changeRadioColor(Color.GREEN);
+        }else{
+            changeRadioColor(Color.DKGRAY);
+        }
     }
 
-    protected void saveValue(String key, SettingData value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Constants.ZEBRA_EBS_STORAGE_SETTING, JSON.toJSONString(value));
-        editor.apply();
-    }
 
-    protected SettingData getValue(String key) {
-        String value = sharedPreferences.getString(key , null);
-        return JSON.parseObject(value, SettingData.class);
-    }
+
+    //   protected void saveValue(String key, SettingData value) {
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+ //       editor.putString(Constants.ZEBRA_EBS_STORAGE_SETTING, JSON.toJSONString(value));
+ //       editor.apply();
+ //   }
+
+   // protected SettingData getValue(String key) {
+   //     String value = sharedPreferences.getString(key, null);
+  //      return JSON.parseObject(value, SettingData.class);
+   // }
 
     protected void setHomeAsUpEnabled(boolean isShow) {
         if (this.actionBar != null) {
@@ -79,7 +83,9 @@ public class BaseActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu, menu);
         //return super.onCreateOptionsMenu(menu);
         imgMenuItem = menu.findItem(R.id.homeConnectLogo);
+
         return true;
+
     }
 
     @Override
@@ -87,6 +93,7 @@ public class BaseActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
 
     public String getMemoryBankLabel(int index) {
         String label = "";
@@ -119,16 +126,24 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void changeRadioColor(int color) {
-        //元々のカラー：-11447983
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.radio_img_foreground, null);
-        if (drawable instanceof VectorDrawable) {
-            VectorDrawable vdc = (VectorDrawable) drawable;
-            vdc.setTint(color);
+
+        try {
+            //元々のカラー：-11447983
+            Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.radio_img_foreground, null);
+            if (drawable instanceof VectorDrawable) {
+                VectorDrawable vdc = (VectorDrawable) drawable;
+                vdc.setTint(color);
+            }
+            if(imgMenuItem != null)
+                imgMenuItem.setIcon(drawable);
+
+        }catch (Exception e) {
+            Log.e(TAG,"BaseActivity err=" + e.getMessage());
         }
-        imgMenuItem.setIcon(drawable);
     }
 
-//    @Override
+
+    //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {
 //            case R.id.homeConnectLogo:

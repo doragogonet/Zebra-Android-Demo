@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterDataAdapter extends ArrayAdapter<FilterInfo> {
+    final static String TAG = "ZEBRA-DEMO";
 
     public List<FilterInfo> filterList;
     private LayoutInflater inflater;

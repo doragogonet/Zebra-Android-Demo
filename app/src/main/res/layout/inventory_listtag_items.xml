@@ -36,6 +36,6 @@
         android:layout_height="20dip"
         android:layout_margin="0dip"
         android:orientation="vertical"
-    />
+        />
 
 </LinearLayout>

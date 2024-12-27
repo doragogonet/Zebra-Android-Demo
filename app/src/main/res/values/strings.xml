@@ -2,10 +2,10 @@
 <resources>
     <!-- 接続方法の選択肢 -->
     <string-array name="connection_types">
-        <item>AUTO</item>
-        <item>USB</item>
+        <!-- item>AUTO</item -->
+        <!-- item>USB</item -->
         <item>BLUETOOTH</item>
-        <item>SERIAL</item>
+        <!-- item>SERIAL</item -->
     </string-array>
 
     <!-- ブザー音量の選択肢 -->
@@ -65,6 +65,10 @@
     <string-array name="stop_trigger">
         <item>IMMEDIATE</item>
         <item>DURATION</item>
+        <item>GPI</item>
+        <item>TAG_OBSERVATION</item>
+        <item>N_ATTEMPTS</item>
+        <item>HANDHELD</item>
     </string-array>
 
     <string name="app_name">Zebra-Demo</string>

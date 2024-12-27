@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import com.zebra.demo.R;
 
+
+
 public class MainActivity extends BaseActivity {
 
     private Button btnInventory, btnInventoryHistory, btnTagTracking, btnSettings;
@@ -23,6 +25,7 @@ public class MainActivity extends BaseActivity {
         btnInventoryHistory = findViewById(R.id.btnInventoryHistory);
         btnTagTracking = findViewById(R.id.btnTagTracking);
         btnSettings = findViewById(R.id.btnSettings);
+
 
         // Inventoryボタンのクリックイベント
         btnInventory.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +59,26 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                //既存のActivityインスタンスを再利用する
                 startActivity(intent);
             }
+
         });
+    }
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        //メニュー更新の通知
+        if(super.imgMenuItem == null ){
+            invalidateOptionsMenu();
+        }
+        if (RFIDHandler.reader != null && RFIDHandler.reader.isConnected()) {
+            super.changeRadioColor(Color.GREEN);
+        }else{
+            super.changeRadioColor(Color.DKGRAY);
+        }
+
     }
 
 }

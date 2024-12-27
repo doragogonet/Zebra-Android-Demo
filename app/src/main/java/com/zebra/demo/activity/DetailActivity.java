@@ -21,7 +21,6 @@ public class DetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
         Intent intent = getIntent();
         HistoryData history = (HistoryData) intent.getSerializableExtra(Constants.HISTORY_DATA_KEY);
 

@@ -1,5 +1,7 @@
 package com.zebra.demo.activity;
 
+import static com.zebra.demo.R.id.display_password;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -54,7 +56,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             rememberMe.setChecked(true);
         }
 
-        displayPassword = findViewById(R.id.display_password);
+        displayPassword = findViewById(display_password);
         displayPassword.setOnClickListener(this);
         displayPassword.setImageResource(R.drawable.eye_close);
 
@@ -155,8 +157,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v){
-        switch (v.getId()) {
-            case R.id.display_password:{
+        if(v.getId() == display_password ){
+            {
                 if (isHideFirst) {
                     displayPassword.setImageResource(R.drawable.eye_close);
                    
@@ -168,7 +170,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                     etPassWord.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     isHideFirst = true;
                 }
-                break;
             }
         }
     }
