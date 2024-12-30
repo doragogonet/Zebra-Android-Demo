@@ -126,10 +126,11 @@
             android:text="終了"
             android:layout_margin="8dp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="318dp"
-        android:text="TextView" />
+<!--sxt 20241230 del start-->
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="318dp"-->
+<!--        android:text="TextView" />-->
+<!--sxt 20241230 del end-->
 </LinearLayout>

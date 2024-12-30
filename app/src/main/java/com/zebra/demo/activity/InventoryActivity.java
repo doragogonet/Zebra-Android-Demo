@@ -31,7 +31,8 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
     private ListView lvEPC;
     private Button btnStart, btnStop, btnFilter;
     private SeekBar inSbPower;
-    private TextView inTvPower,textView;
+//    private TextView inTvPower,textView;      //sxt 20241230 del
+    private TextView inTvPower;                     //sxt 20241230 add
     private int tagCount = 0;
     private List<HistoryData> tagList = new ArrayList<>();
     private RFIDReader reader;
@@ -53,7 +54,7 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
         inTvPower = findViewById(R.id.inTvPower);
         btnFilter = findViewById(R.id.btnFilter);
         //TEST
-        textView = findViewById(R.id.textView);
+//        textView = findViewById(R.id.textView);       //sxt 20241230 del
 
         this.setButtonsEnable(false);
 
@@ -360,7 +361,7 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
             public void run() {
                 //画面表示
                 tvTagCount.setText(String.valueOf(tagCount));
-                textView.append(sb.toString());
+//                textView.append(sb.toString());       //sxt 20241230 del
 
                 for (int index = 0; index < tagData.length; index++) {
                     setDataToList(tagData[index]);
@@ -378,7 +379,7 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
                     public void run() {
                         //statusTextViewRFID.setTex
                         // 画面クリア処理
-                        textView.setText("");
+//                        textView.setText("");     //sxt 20241230 del
                         tagCount = 0;
                         clearTagList();
                     }
