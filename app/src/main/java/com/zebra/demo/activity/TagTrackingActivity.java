@@ -2,8 +2,6 @@ package com.zebra.demo.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +13,15 @@ import android.widget.Toast;
 import com.zebra.demo.R;
 import com.zebra.demo.base.Constants;
 import com.zebra.demo.base.ResponseHandlerInterface;
-import com.zebra.demo.tools.StringUtils;
-import com.zebra.demo.tools.TxtFileOperator;
 import com.zebra.demo.view.VerticalProgressBar;
-import com.zebra.rfid.api3.*;
+import com.zebra.rfid.api3.ACCESS_OPERATION_STATUS;
+import com.zebra.rfid.api3.HANDHELD_TRIGGER_EVENT_TYPE;
+import com.zebra.rfid.api3.RFIDReader;
+import com.zebra.rfid.api3.RfidEventsListener;
+import com.zebra.rfid.api3.RfidReadEvents;
+import com.zebra.rfid.api3.RfidStatusEvents;
+import com.zebra.rfid.api3.STATUS_EVENT_TYPE;
+import com.zebra.rfid.api3.TagData;
 
 /*********************************************************************************
 Zebra RFID SDKのTagLocationing機能を利用して、タグの位置情報を基にタグの追跡を行う。
@@ -133,7 +136,7 @@ public class TagTrackingActivity extends BaseActivity implements ResponseHandler
                     eventHandler = null;
                 }
             }
-            TxtFileOperator.closeFile();
+            
             Toast.makeText(this, "インベントリ終了", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "インベントリ終了に失敗しました", Toast.LENGTH_SHORT).show();

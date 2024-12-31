@@ -15,6 +15,8 @@ import com.zebra.rfid.api3.SESSION;
 import com.zebra.rfid.api3.SL_FLAG;
 import com.zebra.rfid.api3.START_TRIGGER_TYPE;
 import com.zebra.rfid.api3.STOP_TRIGGER_TYPE;
+import com.zebra.rfid.api3.TAG_FIELD;
+import com.zebra.rfid.api3.TagStorageSettings;
 import com.zebra.rfid.api3.TriggerInfo;
 
 public class Constants {
@@ -71,6 +73,17 @@ public class Constants {
                     reader.Config.Antennas.setSingulationControl(1, s1_singulationControl);
                     // delete any prefilters
                     reader.Actions.PreFilters.deleteAll();
+
+                    TagStorageSettings tagStorageSettings = reader.Config.getTagStorageSettings();
+                    TAG_FIELD[] tagField = new TAG_FIELD[6];
+                    tagField[0] = TAG_FIELD.PC;
+                    tagField[1] = TAG_FIELD.PEAK_RSSI;
+                    tagField[2] = TAG_FIELD.TAG_SEEN_COUNT;
+                    tagField[3] = TAG_FIELD.CRC;
+                    tagField[4] = TAG_FIELD.LAST_SEEN_TIME_STAMP;
+                    tagField[5] = TAG_FIELD.PHASE_INFO;
+                    tagStorageSettings.setTagFields(tagField);
+                    reader.Config.setTagStorageSettings(tagStorageSettings);
                     //
                 } catch (InvalidUsageException | OperationFailureException e) {
                     Log.e("ConfigureReader","InvalidUsageException"+e.getMessage());

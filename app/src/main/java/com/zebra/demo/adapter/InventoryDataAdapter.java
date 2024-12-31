@@ -68,7 +68,15 @@ public class InventoryDataAdapter extends ArrayAdapter<HistoryData> {
                 rssi = ((int) Float.parseFloat(data.getPeakRSSI()) * -1);
                 rssiStr = data.getPeakRSSI();
             }
-            viewHolder.tvTagRssi.setData((100 - rssi) * 5, rssiStr);
+//            viewHolder.tvTagRssi.setData((100 - rssi) * 5, rssiStr);          //sxt 20241231 del
+            //sxt 20241231 add start
+            if (rssi > 80) {
+                viewHolder.tvTagRssi.setData((100 - rssi) * 6, rssiStr);
+            } else {
+                viewHolder.tvTagRssi.setData((int)((100 - rssi) * 3.6), rssiStr);
+            }
+            //sxt 20241231 add end
+
         } catch (Exception ex) {
             Log.d(TAG, ex.getMessage());
         }

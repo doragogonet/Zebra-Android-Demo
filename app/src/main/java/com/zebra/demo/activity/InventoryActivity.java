@@ -156,7 +156,7 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        TxtFileOperator.closeFile();
+        this.stopInventory();
     }
 
     // RFIDリーダーの初期化
@@ -185,7 +185,6 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
     private void startInventory() {
         try {
 
-            TxtFileOperator.openFile(getApplicationContext(), TxtFileOperator.HISTORY_RFID_FILE_NAME);
             this.clearTagList();
             // RFIDリーダーのインベントリー初期化
             initializeRFIDReader();
@@ -200,13 +199,15 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
     private void stopInventory() {
         try {
             if (reader != null && reader.isConnected()) {
-               // reader.Actions.Inventory.stop();
+                //reader.Actions.Inventory.stop();
                 if( eventHandler != null ) {
                     reader.Events.removeEventsListener(eventHandler);
                     eventHandler = null;
+                    TxtFileOperator.writeFile(getApplicationContext(), TxtFileOperator.HISTORY_RFID_FILE_NAME, this.tagList);
                 }
+
             }
-            TxtFileOperator.closeFile();
+
             Toast.makeText(this, "インベントリ終了", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "インベントリ終了に失敗しました", Toast.LENGTH_SHORT).show();
@@ -236,7 +237,6 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
                 //
 
                 this.addData(history);
-                TxtFileOperator.writeFile(data, true);
             } else {
                 //HistoryData history = this.tagList.stream().filter(tag -> tag.getTagID().equals(data.getTagID())).findFirst().orElse(null);
                 HistoryData history = null;

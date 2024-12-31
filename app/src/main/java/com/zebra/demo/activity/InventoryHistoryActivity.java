@@ -43,7 +43,7 @@ public class InventoryHistoryActivity extends BaseActivity   {
         setContentView(R.layout.activity_inventory_history);
 
         LvTags = findViewById(R.id.LvTags);
-        imageButton = findViewById(R.id.button);
+        imageButton = findViewById(R.id.shareButton);
 //        button = findViewById(R.id.button2);
         progressBar = findViewById(R.id.progressBar);
         showLoading();

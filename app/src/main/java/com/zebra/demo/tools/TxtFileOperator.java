@@ -3,7 +3,6 @@ package com.zebra.demo.tools;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
-import com.zebra.rfid.api3.TagData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,47 +16,63 @@ import java.util.List;
 public class TxtFileOperator {
 
     public final static String HISTORY_RFID_FILE_NAME = "ebsRfidData.txt";
-    public final static String FILTER_FILE_NAME = "ebsRfidData.txt";
+    public final static String FILTER_FILE_NAME = "ebsRfidFilter.txt";
 
     private static FileOutputStream fos;
     private static BufferedWriter writer;
 
-    public static boolean openFile(Context context, String fileName) {
+//    public static boolean openFile(Context context, String fileName) {
+//        try {
+//            fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+//            writer = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            return false;
+//        }
+//        return true;
+//    }
+
+    public static <T> boolean writeFile(Context context, String fileName, List<T> objList) {
         try {
             fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             writer = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    public static <T> boolean writeFile(Object obj, boolean isFlush) {
-        try {
-            writer.write(JSON.toJSONString(obj));
-            writer.newLine();
-            if(isFlush) writer.flush();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-    public static boolean closeFile() {
-        try {
-            if (writer != null) {
-                writer.close();
+            for (int i = 0; i < objList.size(); i++) {
+                writer.write(JSON.toJSONString(objList.get(i)));
+                writer.newLine();
             }
-            if (fos != null) {
-                fos.close();
-            }
+            writer.flush();
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
+        } finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return false;
+            }
         }
         return true;
     }
+//    public static boolean closeFile() {
+//        try {
+//            if (writer != null) {
+//                writer.close();
+//            }
+//            if (fos != null) {
+//                fos.close();
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            return false;
+//        }
+//        return true;
+//    }
 
     public static <T> List<T> readJsonFromFile(Context context, String fileName, Class<T> clazz) {
         List<T> list = new ArrayList<T>();

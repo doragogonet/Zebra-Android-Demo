@@ -1,13 +1,11 @@
 package com.zebra.demo.view;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.graphics.Paint;
-import android.content.Context;
-
-import com.zebra.demo.view.LineChartData;
 
 public class BarChartView extends View {
 
@@ -34,7 +32,8 @@ public class BarChartView extends View {
 
     private void init() {
         this.barPaint = new Paint();
-        this.barPaint.setColor(Color.GREEN);
+//        this.barPaint.setColor(Color.GREEN);                              //sxt 20241231 del
+        this.barPaint.setColor(Color.parseColor("#28bb50"));        //sxt 20241231 add
         this.barPaint.setStyle(Paint.Style.FILL);
         this.barPaint.setAntiAlias(true);
     }

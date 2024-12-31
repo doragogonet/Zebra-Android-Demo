@@ -346,6 +346,8 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
         context.runOnUiThread(() -> context.tvPower.setEnabled(isConn));
         context.runOnUiThread(() -> context.spStartTrigger.setEnabled(isConn));
         context.runOnUiThread(() -> context.spStopTrigger.setEnabled(isConn));
+        context.runOnUiThread(() -> context.swTagReadEvent.setEnabled(isConn));     //sxt 20241231 add
+
 
         context.runOnUiThread(() -> context.swAttachTagDataWithReadEvent.setEnabled(isConn));
         context.runOnUiThread(() -> context.swReaderDisconnectEvent.setEnabled(isConn));

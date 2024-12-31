@@ -103,22 +103,25 @@
                 android:layout_width="90dip"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="left"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:text="NO" />
 
             <TextView
-                android:layout_width="140dip"
+                android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="left"
                 android:text="EPC" />
+
+            <TextView
+                android:layout_width="40dip"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="CNT" />
 
             <TextView
                 android:layout_width="75dip"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="left"
                 android:text="RSSI" />
 
         </LinearLayout>
@@ -141,7 +144,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageButton
-                android:id="@+id/button"
+                android:id="@+id/shareButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/forward"/>
@@ -151,7 +154,7 @@
 <!--    </LinearLayout>-->
 
 <!--    <Button-->
-<!--        android:id="@+id/button2"-->
+<!--        android:onClick="createFile"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:text="生成文件"-->

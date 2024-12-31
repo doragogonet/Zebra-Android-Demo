@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="5dp">
 
     <!-- タグ数表示 -->
     <TextView
@@ -56,35 +56,28 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:layout_width="50dip"
+            android:layout_width="90dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@color/white"
-            android:gravity="left"
+            android:paddingLeft="5dp"
             android:text="NO" />
 
         <TextView
             android:layout_width="110dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@color/white"
-            android:gravity="center"
             android:text="EPC" />
 
         <TextView
-            android:layout_width="100dip"
+            android:layout_width="40dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@color/white"
-            android:gravity="center"
-            android:text="COUNT" />
+            android:text="CNT" />
 
         <TextView
-            android:layout_width="175dip"
+            android:layout_width="75dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@color/white"
-            android:gravity="left"
             android:text="RSSI" />
 
     </LinearLayout>
@@ -92,16 +85,16 @@
     <!-- EPCとRSSIリスト -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
         <!-- EPCリスト -->
         <ListView
             android:id="@+id/lvEPC"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:layout_weight="1" />
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
     </LinearLayout>
 
@@ -114,17 +107,17 @@
 
         <Button
             android:id="@+id/btnStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="開始"
-            android:layout_margin="8dp" />
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="8dp"
+            android:text="開始"/>
 
         <Button
             android:id="@+id/btnStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:text="終了"
-            android:layout_margin="8dp" />
+            android:layout_marginLeft="8dp"/>
     </LinearLayout>
 <!--sxt 20241230 del start-->
 <!--    <TextView-->
