@@ -208,4 +208,38 @@ public class SettingsUtl {
         setStartTrigger(reader,tempStartTrigger);
     }
 
+    public static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        if (len % 2 != 0) {
+            s = "0" + s;
+            len += 1;
+        }
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+        }
+        return data;
+    }
+
+    public static byte[] binaryStringToByteArray(String binaryString) {
+        // 2進数文字列の長さが8の倍数でない場合は補正
+        int length = binaryString.length();
+        if (length % 8 != 0) {
+            binaryString = "0".repeat(8 - (length % 8)) + binaryString;
+        }
+
+        // 結果のbyte配列
+        int byteCount = binaryString.length() / 8;
+        byte[] byteArray = new byte[byteCount];
+
+        for (int i = 0; i < byteCount; i++) {
+            // 8ビットずつ切り出して整数値に変換
+            String byteSegment = binaryString.substring(i * 8, (i + 1) * 8);
+            byteArray[i] = (byte) Integer.parseInt(byteSegment, 2);
+        }
+
+        return byteArray;
+    }
+
+
 }

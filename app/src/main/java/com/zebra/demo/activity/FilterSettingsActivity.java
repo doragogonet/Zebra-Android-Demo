@@ -8,13 +8,6 @@ import com.zebra.demo.R;
 import com.zebra.demo.adapter.FilterDataAdapter;
 import com.zebra.demo.tools.FilterInfo;
 import com.zebra.demo.tools.TxtFileOperator;
-import com.zebra.demo.tools.UtilsZebra;
-import com.zebra.rfid.api3.FILTER_ACTION;
-import com.zebra.rfid.api3.MEMORY_BANK;
-import com.zebra.rfid.api3.PreFilters;
-import com.zebra.rfid.api3.RFIDReader;
-import com.zebra.rfid.api3.STATE_AWARE_ACTION;
-import com.zebra.rfid.api3.TARGET;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +16,7 @@ public class FilterSettingsActivity extends BaseActivity {
 
     private EditText etNumber, etData, etOffset, etLength;
     private Spinner spMemoryBank, spAction, spTarget;
-    private Button btnAddFilter, btnSetFilter;
+    private Button btnAddFilter; //, btnSetFilter;
     private ListView lvFilters;
     private List<FilterInfo> filterList = new ArrayList<>();   // フィルタ情報のリスト
     private FilterDataAdapter filterAdapter;
@@ -31,7 +24,6 @@ public class FilterSettingsActivity extends BaseActivity {
     private int actionSelection;
     private int targetBankSelection;
     private int itemIndex = -1;
-    private  RFIDReader reader;
 
 
     @Override
@@ -48,11 +40,10 @@ public class FilterSettingsActivity extends BaseActivity {
         spAction = findViewById(R.id.spAction);
         spTarget = findViewById(R.id.spTarget);
         btnAddFilter = findViewById(R.id.btnAddFilter);
-        btnSetFilter = findViewById(R.id.btnSetFilter);
+    //    btnSetFilter = findViewById(R.id.btnSetFilter);
         lvFilters = findViewById(R.id.lvFilters);
 
         this.filterList = TxtFileOperator.readJsonFromFile(getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME, FilterInfo.class);
-
         // フィルタリストの初期化
         filterAdapter = new FilterDataAdapter(this, this.filterList);
         lvFilters.setAdapter(filterAdapter);
@@ -67,14 +58,14 @@ public class FilterSettingsActivity extends BaseActivity {
             }
         });
 
-        // 追加ボタンのクリックイベント
-        btnSetFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // 追加ボタンのクリックイベント (このボタン不要)
+        //btnSetFilter.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
                 //リーダーに設定する
-                applyPreFilters();
-            }
-        });
+              //  applyPreFilters();
+        //    }
+        //});
 
 //        // リスト項目の長押しで削除
 //        lvFilters.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -206,62 +197,9 @@ public class FilterSettingsActivity extends BaseActivity {
         itemIndex = -1;
     }
 
-    // PreFiltersの適用
-    private void applyPreFilters() {
-
-        // SettingsActivityで接続されたリーダーを取得
-        //RFIDReader reader = RFIDReaderManager.getInstance().getReader();
-
-        if (reader == null || !reader.isConnected()) {
-            Toast.makeText(this, "リーダーが接続されていません", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        try {
-            // PreFiltersをクリア
-            reader.Actions.PreFilters.deleteAll();
-
-            // 各フィルタをリーダーのPreFiltersに設定
-            for (FilterInfo filter : filterList) {
-                // フィルタ情報をパース
-                String data = filter.getFilterData();
-                String memoryBankIndex = String.valueOf(filter.getFilterMemoryBankSelection());
-                int offset = Integer.parseInt(filter.getFilterOffset());
-                int length = Integer.parseInt(filter.getFilterLength());
-                String actionIndex = String.valueOf(filter.getFilterActionSelection());
-                String targetIndex = String.valueOf(filter.getFilterTargetSelection());
-
-                // PreFilterオブジェクトの作成
-                PreFilters preFilters = new PreFilters();
-                PreFilters.PreFilter preFilter = null;
-                preFilter = preFilters.new PreFilter();
-                preFilter.setTagPattern(data);
-                MEMORY_BANK memoryBank = UtilsZebra.getMemoryBankEnum(memoryBankIndex);
-                preFilter.setMemoryBank(memoryBank);
-                preFilter.setBitOffset(offset);
-                preFilter.setTagPatternBitCount(length);
-
-                // アクションとターゲットを設定
-                preFilter.setFilterAction(FILTER_ACTION.FILTER_ACTION_STATE_AWARE);
-                TARGET target = UtilsZebra.getStateAwareTarget(targetIndex);
-                preFilter.StateAwareAction.setTarget(target);
-
-                STATE_AWARE_ACTION stateAwareAction = UtilsZebra.getStateAwareAction(actionIndex);
-                preFilter.StateAwareAction.setStateAwareAction(stateAwareAction);
-
-                // PreFilterをリーダーに追加
-                reader.Actions.PreFilters.add(preFilter);
-            }
-
-            Toast.makeText(this, "プリフィルタが設定されました", Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            Toast.makeText(this, "プリフィルタの設定に失敗しました: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     public void setSetBtnEnable() {
-        btnSetFilter.setEnabled(!this.filterList.isEmpty());
+      //  btnSetFilter.setEnabled(!this.filterList.isEmpty());
     }
 
 }

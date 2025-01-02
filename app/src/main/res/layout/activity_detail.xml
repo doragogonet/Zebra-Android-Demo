@@ -1,92 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".activity.DetailActivity">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/TvDetailTagId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#383a3e"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp" />
 
-    <TextView
-        android:id="@+id/TvDetailTagTid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/TvDetailTagTid"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="#383a3e"-->
+<!--        android:textSize="17dp"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingBottom="4dp" />-->
 
-    <TextView
-        android:id="@+id/TvDetailTagEpc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
-    <TextView
-        android:id="@+id/TvDetailTagUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/TvDetailTagEpc"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="#383a3e"-->
+<!--        android:textSize="17dp"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingBottom="4dp" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/TvDetailTagUser"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="#383a3e"-->
+<!--        android:textSize="17dp"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingBottom="4dp" />-->
 
     <TextView
         android:id="@+id/TvDetailTagMemoryBank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#383a3e"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:paddingTop="10dp"
         android:paddingBottom="4dp" />
 
     <TextView
-        android:id="@+id/TvDetailTagAntennaId"
+        android:id="@+id/TvDetailTagCurrentTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#383a3e"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:paddingTop="10dp"
         android:paddingBottom="4dp" />
 
-    <TextView
-        android:id="@+id/TvDetailTagCrc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
-
-    <TextView
-        android:id="@+id/TvDetailTagEventTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
-
-<!--    <Button-->
-<!--        android:id="@+id/BtClear"-->
+<!--    <TextView-->
+<!--        android:id="@+id/TvDetailTagAntennaId"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:background="@drawable/button_bg"-->
-<!--        android:text="@string/btClear"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="15sp" />-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--        android:textColor="#383a3e"-->
+<!--        android:textSize="17sp"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingBottom="4dp" />-->
+
+    <TextView
+        android:id="@+id/TvDetailTagPc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/TvDetailTagSeenCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#383a3e"
+        android:textSize="17sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RSSI："
+            android:textColor="#383a3e"
+            android:textSize="17sp" />
+
+        <com.zebra.demo.view.BarChartView
+            android:id="@+id/TvInventoryTagRssi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:orientation="horizontal"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

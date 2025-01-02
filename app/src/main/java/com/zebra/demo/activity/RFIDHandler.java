@@ -420,7 +420,7 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
                             break;
                     }
                     context.spStartTrigger.setEnabled(true);
-                    context.spStartTrigger.setSelection(sel);
+                    context.spStartTrigger.setSelection(sel, false);
 
                     if(settingData.getStopTrigger() == null){
                         settingData.setStopTrigger(reader.Config.getStopTrigger().getTriggerType().toString());

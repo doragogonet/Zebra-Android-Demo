@@ -11,6 +11,7 @@ public class HistoryData {
     private String CRC;
     private String tagCurrentTime;
     private int memoryBankValue;
+    private String PC;
 
     public String getTagCurrentTime() {
         return tagCurrentTime;
@@ -91,4 +92,13 @@ public class HistoryData {
     public void setCRC(String CRC) {
         this.CRC = CRC;
     }
+
+    public String getPC() {
+        return PC;
+    }
+
+    public void setPC(String PC) {
+        this.PC = PC;
+    }
+
 }

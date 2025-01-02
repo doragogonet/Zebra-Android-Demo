@@ -1,10 +1,10 @@
 package com.zebra.demo.activity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,9 +21,7 @@ import androidx.core.content.ContextCompat;
 
 
 import com.zebra.demo.R;
-import com.zebra.demo.base.ResponseHandlerInterface;
 import com.zebra.demo.base.SettingsUtl;
-import com.zebra.rfid.api3.*;
 
 
 
@@ -146,8 +144,11 @@ public class SettingsActivity extends BaseActivity  {
         spStartTrigger.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selectedValue = parentView.getItemAtPosition(position).toString();
-                SettingsUtl.setTriggerStartType(RFIDHandler.reader,selectedValue);
+                if(RFIDHandler.reader != null && RFIDHandler.reader.isConnected()) {
+
+                    String selectedValue = parentView.getItemAtPosition(position).toString();
+                    SettingsUtl.setTriggerStartType(RFIDHandler.reader, selectedValue);
+                }
             }
 
             @Override

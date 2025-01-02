@@ -13,13 +13,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.zebra.demo.R;
 import com.zebra.demo.adapter.InventoryDataAdapter;
 import com.zebra.demo.base.Constants;
 import com.zebra.demo.base.ResponseHandlerInterface;
 import com.zebra.demo.base.SettingsUtl;
 import com.zebra.demo.bean.HistoryData;
+import com.zebra.demo.tools.FilterInfo;
 import com.zebra.demo.tools.TxtFileOperator;
+import com.zebra.demo.tools.UtilsZebra;
 import com.zebra.rfid.api3.*;
 
 import java.util.ArrayList;
@@ -60,7 +63,6 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
 
         adapter = new InventoryDataAdapter(this, this.tagList);
         lvEPC.setAdapter(adapter);
-
         reader = RFIDHandler.reader;
 
 
@@ -225,16 +227,14 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
                 history.setTagID(data.getTagID());
                 if(data.getMemoryBank() != null)
                     history.setMemoryBankValue(data.getMemoryBank().getValue());
-
-                history.setMemoryBankValue(data.getMemoryBankDataAllocatedSize());
+               // history.setMemoryBankValue(data.getMemoryBankDataAllocatedSize());
                 if (data.getTagEventTimeStamp() !=null)
                     history.setTagCurrentTime(data.getTagEventTimeStamp().GetCurrentTime());
 
                 history.setPeakRSSI(String.valueOf(data.getPeakRSSI()));
 
                 history.setTagSeenCount(String.valueOf(data.getTagSeenCount()));
-                //if(data.getPC() != null )
-                //
+                history.setPC(String.valueOf(data.getPC()));
 
                 this.addData(history);
             } else {
@@ -384,10 +384,70 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
                         clearTagList();
                     }
                 });
+                //kaku ADD 2025-1-1
+                applyPreFilters();
                 SettingsActivity.rf.performInventory();
             } else
                 SettingsActivity.rf.stopInventory();
         }
+
+
+    // PreFiltersの適用
+    private void applyPreFilters() {
+
+        List<FilterInfo> filterList = new ArrayList<>();   // フィルタ情報のリスト
+        filterList = TxtFileOperator.readJsonFromFile(getApplicationContext(), TxtFileOperator.FILTER_FILE_NAME, FilterInfo.class);
+        if(filterList.isEmpty()) return;
+
+        // SettingsActivityで接続されたリーダーを取得
+        if (reader == null || !reader.isConnected()) {
+            Toast.makeText(this, "リーダーが接続されていません", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            // PreFiltersをクリア
+            reader.Actions.PreFilters.deleteAll();
+
+            // 各フィルタをリーダーのPreFiltersに設定
+            for (FilterInfo filter : filterList) {
+                // フィルタ情報
+                String data = filter.getFilterData();
+               // String memoryBankIndex = String.valueOf(filter.getFilterMemoryBankSelection());
+                int offset = Integer.parseInt(filter.getFilterOffset());
+                int length = Integer.parseInt(filter.getFilterLength());
+                String actionIndex = String.valueOf(filter.getFilterActionSelection());
+                String targetIndex = String.valueOf(filter.getFilterTargetSelection());
+
+                // PreFilterオブジェクトの作成
+                PreFilters preFilters = new PreFilters();
+                PreFilters.PreFilter preFilter = preFilters.new PreFilter();
+
+                MEMORY_BANK memoryBank = MEMORY_BANK.GetMemoryBankValue(filter.getFilterMemoryBankSelection());
+                byte[] bydata = com.zebra.demo.activity.SettingsUtl.hexStringToByteArray(data);
+                preFilter.setTagPattern(bydata);
+                preFilter.setMemoryBank(memoryBank);
+                preFilter.setBitOffset(offset);
+                preFilter.setTagPatternBitCount(length);
+
+                // アクションとターゲットを設定
+                preFilter.setFilterAction(FILTER_ACTION.FILTER_ACTION_STATE_AWARE);
+                TARGET target = UtilsZebra.getStateAwareTarget(targetIndex);
+                preFilter.StateAwareAction.setTarget(target);
+
+                STATE_AWARE_ACTION stateAwareAction = UtilsZebra.getStateAwareAction(actionIndex);
+                preFilter.StateAwareAction.setStateAwareAction(stateAwareAction);
+
+                // PreFilterをリーダーに追加
+                reader.Actions.PreFilters.add(preFilter);
+            }
+
+
+        } catch (Exception e) {
+            Toast.makeText(this, "プリフィルタの設定に失敗しました: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
 

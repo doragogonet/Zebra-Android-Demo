@@ -121,8 +121,10 @@ public class Constants {
                             break;
                         case "START_TRIGGER_TYPE_HANDHELD":
                             sel = "HANDHELD";
+                            break;
                         default:
                             sel = "IMMEDIATE";
+			    break;
                     }
                     SettingsUtl.setTriggerStartType(reader,sel);
                 }
@@ -142,8 +144,10 @@ public class Constants {
                             break;
                         case "START_TRIGGER_TYPE_HANDHELD":
                             sel = "HANDHELD";
+                            break;
                         default:
                             sel = "IMMEDIATE";
+			    break;
                     }
 
                     SettingsUtl.setTriggerStopType(reader,sel);

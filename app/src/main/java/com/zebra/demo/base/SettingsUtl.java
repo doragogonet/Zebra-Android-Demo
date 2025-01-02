@@ -125,10 +125,9 @@ public class SettingsUtl {
     public static  StartTrigger getDefaultStartTrigger(RFIDReader reader) {
         StartTrigger tempStartTrigger = null;
         try {
-            if (reader == null || !reader.isConnected()) {
-                return null;
+            if (reader != null && reader.isConnected()) {
+                tempStartTrigger = reader.Config.getStartTrigger();
             }
-            tempStartTrigger = reader.Config.getStartTrigger();
         } catch (Exception e){
             Log.e(TAG,"getDefaultStartTrigger err =",e);
         }
@@ -138,10 +137,9 @@ public class SettingsUtl {
     public  static  StopTrigger getDefaultStopTrigger(RFIDReader reader) {
         StopTrigger tempStopTrigger = null;
         try {
-            if (reader == null || !reader.isConnected()) {
-                return null;
+            if (reader != null && reader.isConnected()) {
+                tempStopTrigger = reader.Config.getStopTrigger();
             }
-            tempStopTrigger = reader.Config.getStopTrigger();
         } catch (Exception e){
             Log.e(TAG,"getDefaultStart;Trigger err =",e);
         }

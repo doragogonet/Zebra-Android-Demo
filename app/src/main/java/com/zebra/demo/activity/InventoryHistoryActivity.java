@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import androidx.core.content.FileProvider;
 
+import com.alibaba.fastjson.JSON;
 import com.zebra.demo.R;
 import com.zebra.demo.adapter.InventoryDataAdapter;
 import com.zebra.demo.base.Constants;
@@ -77,7 +78,8 @@ public class InventoryHistoryActivity extends BaseActivity   {
                 adapter.notifyDataSetInvalidated();
 
                 Intent intent = new Intent(InventoryHistoryActivity.this, DetailActivity.class);
-                intent.putExtra(Constants.HISTORY_DATA_KEY,(Serializable) tagList.get(position));
+               // intent.putExtra(Constants.HISTORY_DATA_KEY,(Serializable) tagList.get(position));
+                intent.putExtra(Constants.HISTORY_DATA_KEY, JSON.toJSONString(tagList.get(position)));
                 startActivity(intent);
             }
         });

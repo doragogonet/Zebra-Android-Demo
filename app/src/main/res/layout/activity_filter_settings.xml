@@ -95,19 +95,11 @@
             <!-- 追加ボタン -->
             <Button
                 android:id="@+id/btnAddFilter"
-                android:layout_width="wrap_content"
+                android:layout_width="169dp"
                 android:layout_height="wrap_content"
-                android:text="追加"
-                android:layout_gravity="center"/>
-
-            <!-- 設定ボタン -->
-            <Button
-                android:id="@+id/btnSetFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="設定"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"/>
+                android:text="追加" />
+
         </LinearLayout>
 
         <LinearLayout

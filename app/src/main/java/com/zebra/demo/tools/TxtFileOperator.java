@@ -34,6 +34,7 @@ public class TxtFileOperator {
 
     public static <T> boolean writeFile(Context context, String fileName, List<T> objList) {
         try {
+
             fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             writer = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
             for (int i = 0; i < objList.size(); i++) {
@@ -77,6 +78,8 @@ public class TxtFileOperator {
     public static <T> List<T> readJsonFromFile(Context context, String fileName, Class<T> clazz) {
         List<T> list = new ArrayList<T>();
         try {
+            //ファイル存在のチェック
+            if(!context.getFileStreamPath(fileName).exists()) return list;
 
             try (FileInputStream fis = context.openFileInput(fileName);
                  BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"))) {
