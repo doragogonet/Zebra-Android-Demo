@@ -124,7 +124,7 @@ public class Constants {
                             break;
                         default:
                             sel = "IMMEDIATE";
-			    break;
+                            break;
                     }
                     SettingsUtl.setTriggerStartType(reader,sel);
                 }
@@ -147,7 +147,7 @@ public class Constants {
                             break;
                         default:
                             sel = "IMMEDIATE";
-			    break;
+			                break;
                     }
 
                     SettingsUtl.setTriggerStopType(reader,sel);

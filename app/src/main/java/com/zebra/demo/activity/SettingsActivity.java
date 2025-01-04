@@ -36,7 +36,7 @@ public class SettingsActivity extends BaseActivity  {
     public Button btnConnect, btnDisconnect;
     public Switch swHandheldEvent, swTagReadEvent, swAttachTagDataWithReadEvent, swReaderDisconnectEvent, swInfoEvent, swCradleEvent, swBatteryEvent, swFirmwareUpdateEvent, swHeartBeatEvent;
 
-    public TextView statusTextViewRFID = null;
+    public TextView statusTextViewRFID;
     //その他画面を使う。
     public static RFIDHandler rf;
 
@@ -238,15 +238,16 @@ public class SettingsActivity extends BaseActivity  {
         super.onPostResume();
 
         String status = rf.onResume();
+        statusTextViewRFID.setText(status);
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                rf.setBtnEnable();
-                rf.setViewValue();
-                statusTextViewRFID.setText(status);
-            }
-        });
+      //  runOnUiThread(new Runnable() {
+      //      @Override
+      //      public void run() {
+       //         rf.setBtnEnable();
+       //         rf.setViewValue();
+        //        statusTextViewRFID.setText(status);
+        //    }
+        //});
 
 //        if (rf.reader != null && rf.reader.isConnected()) {
 //            changeRadioColor(Color.BLUE);
@@ -263,7 +264,6 @@ public class SettingsActivity extends BaseActivity  {
 
 
     // 権限リクエストの結果を処理
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 

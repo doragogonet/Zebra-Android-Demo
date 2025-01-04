@@ -23,8 +23,8 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
     private  static ArrayList<ReaderDevice> availableRFIDReaderList;
     private  static ReaderDevice readerDevice;
     public   static RFIDReader reader;
-    public   static SettingData settingData ;
-   // private  EventHandler eventHandler;
+    public   static SettingData settingData  ;
+    private int sel;
     // UI and context
     private  SettingsActivity context;
 
@@ -135,7 +135,7 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            context.statusTextViewRFID.setText(result);
+            context.runOnUiThread(() ->context.statusTextViewRFID.setText(result));
         }
     }
 
@@ -241,14 +241,7 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
     public   void AsyncConnected() {
         if(reader != null && reader.isConnected()) {
             saveSetting();
-            context.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //画面表示
-                    setViewValue();
-                }
-            });
-
+            setViewValue();
             context.runOnUiThread(() ->context.changeRadioColor(Color.GREEN));
         }else {
             context.runOnUiThread(() ->context.statusTextViewRFID.setText("Disconnected"));
@@ -323,7 +316,16 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
 
     }
 
-    public void setBtnEnable() {
+    public  void setBtnEnable(){
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // UI操作
+                setBtnEnable0();
+            }
+        });
+    }
+    private void setBtnEnable0() {
         boolean isConn;
 
         //メニュー更新の通知
@@ -337,40 +339,51 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
             context.changeRadioColor(Color.DKGRAY);
             isConn = false;
         }
+        context.btnConnect.setEnabled(!isConn);
+        context.btnDisconnect.setEnabled(isConn);
+        context.spConnectionType.setEnabled(!isConn);
+        context.spBeeperVolume.setEnabled(isConn);
+        context.sbPower.setEnabled(isConn);
+        context.tvPower.setEnabled(isConn);
+        context.spStartTrigger.setEnabled(isConn);
+        context.spStopTrigger.setEnabled(isConn);
+        context.swTagReadEvent.setEnabled(isConn);     //sxt 20241231 add
 
-        context.runOnUiThread(() -> context.btnConnect.setEnabled(!isConn));
-        context.runOnUiThread(() -> context.btnDisconnect.setEnabled(isConn));
-        context.runOnUiThread(() -> context.spConnectionType.setEnabled(!isConn));
-        context.runOnUiThread(() -> context.spBeeperVolume.setEnabled(isConn));
-        context.runOnUiThread(() -> context.sbPower.setEnabled(isConn));
-        context.runOnUiThread(() -> context.tvPower.setEnabled(isConn));
-        context.runOnUiThread(() -> context.spStartTrigger.setEnabled(isConn));
-        context.runOnUiThread(() -> context.spStopTrigger.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swTagReadEvent.setEnabled(isConn));     //sxt 20241231 add
 
-
-        context.runOnUiThread(() -> context.swAttachTagDataWithReadEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swReaderDisconnectEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swInfoEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swCradleEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swBatteryEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swFirmwareUpdateEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swHeartBeatEvent.setEnabled(isConn));
-        context.runOnUiThread(() -> context.swHandheldEvent.setEnabled(isConn));
+        context.swAttachTagDataWithReadEvent.setEnabled(isConn);
+        context.swReaderDisconnectEvent.setEnabled(isConn);
+        context.swInfoEvent.setEnabled(isConn);
+        context.swCradleEvent.setEnabled(isConn);
+        context.swBatteryEvent.setEnabled(isConn);
+        context.swFirmwareUpdateEvent.setEnabled(isConn);
+        context.swHeartBeatEvent.setEnabled(isConn);
+        context.swHandheldEvent.setEnabled(isConn);
 
     }
 
-    //画面が戻る初期設定　
     public void setViewValue() {
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // UI操作
+                setViewValue0();
+            }
+        });
+
+    }
+    //画面が戻る初期設定　
+    private void setViewValue0() {
+
 
                 if (reader == null || !reader.isConnected()) {
                     return;
                 }
+
                 try {
                     if(settingData.getBeeperVolume() == null) {
                         settingData.setBeeperVolume(reader.Config.getBeeperVolume().toString());
                     }
-                    int sel;
+
                     switch(settingData.getBeeperVolume()) {
                         case "HIGH_BEEP":
                             sel = 0;
@@ -389,9 +402,8 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
                             break;
 
                     }
-                    context.spBeeperVolume.setEnabled(true);
-                    context.spBeeperVolume.setSelection(sel);
 
+                    context.spBeeperVolume.setSelection(sel);
 
                     if(settingData.getPowerIndex() == null) {
                         settingData.setPowerIndex(String.valueOf(reader.Config.Antennas.getAntennaRfConfig(1).getTransmitPowerIndex()));
@@ -419,8 +431,7 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
                             sel = 0;
                             break;
                     }
-                    context.spStartTrigger.setEnabled(true);
-                    context.spStartTrigger.setSelection(sel, false);
+                    context.spStartTrigger.setSelection(sel);
 
                     if(settingData.getStopTrigger() == null){
                         settingData.setStopTrigger(reader.Config.getStopTrigger().getTriggerType().toString());
@@ -451,7 +462,6 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
                             sel = 0;
                             break;
                     }
-                    context.spStopTrigger.setEnabled(true);
                     context.spStopTrigger.setSelection(sel);
 
                     if(settingData.getHandheldEvent() == null){
@@ -487,7 +497,7 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
                     if(settingData.getBatteryEvent() == null){
                         settingData.setBatteryEvent(String.valueOf(reader.Events.isBatterySet()));
                     }
-                    context.swBatteryEvent.setChecked(Boolean.parseBoolean(settingData.getBatteryEvent()));
+                    context.runOnUiThread(() ->context.swBatteryEvent.setChecked(Boolean.parseBoolean(settingData.getBatteryEvent())));
 
                     if(settingData.getFirmwareUpdateEvent() == null){
                         settingData.setFirmwareUpdateEvent("false");
@@ -499,7 +509,6 @@ public class RFIDHandler  implements Readers.RFIDReaderEventHandler{
                     }
                     context.swHeartBeatEvent.setChecked(Boolean.parseBoolean(settingData.getHeartBeatEvent()));
                 } catch (Exception ignored) {
-                    ignored.printStackTrace();
                     Log.d(TAG,ignored.getMessage());
                 }
     }

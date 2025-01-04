@@ -1,112 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
-
-    <TextView
-        android:id="@+id/TvDetailTagId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17sp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/TvDetailTagTid"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="#383a3e"-->
-<!--        android:textSize="17dp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:paddingBottom="4dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/TvDetailTagEpc"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="#383a3e"-->
-<!--        android:textSize="17dp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:paddingBottom="4dp" />-->
-<!--    <TextView-->
-<!--        android:id="@+id/TvDetailTagUser"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="#383a3e"-->
-<!--        android:textSize="17dp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:paddingBottom="4dp" />-->
-
-    <TextView
-        android:id="@+id/TvDetailTagMemoryBank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
-
-    <TextView
-        android:id="@+id/TvDetailTagCurrentTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/TvDetailTagAntennaId"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="#383a3e"-->
-<!--        android:textSize="17sp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:paddingBottom="4dp" />-->
-
-    <TextView
-        android:id="@+id/TvDetailTagPc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
-
-    <TextView
-        android:id="@+id/TvDetailTagSeenCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#383a3e"
-        android:textSize="17sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" />
+    tools:context=".activity.DetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="4dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RSSI："
-            android:textColor="#383a3e"
-            android:textSize="17sp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <com.zebra.demo.view.BarChartView
-            android:id="@+id/TvInventoryTagRssi"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewdata"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:orientation="horizontal"
-            />
+            android:text="" />
     </LinearLayout>
-
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
