@@ -408,7 +408,11 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
         try {
             // PreFiltersをクリア
             reader.Actions.PreFilters.deleteAll();
-
+            if (filterList.size() > reader.ReaderCapabilities.getMaxNumPreFilters()){
+               //error kaku add
+                Toast.makeText(this, "MaxNumPreFilters オーバー", Toast.LENGTH_SHORT).show();
+                return;
+            }
             // 各フィルタをリーダーのPreFiltersに設定
             for (FilterInfo filter : filterList) {
                 // フィルタ情報
@@ -424,7 +428,7 @@ public  class InventoryActivity extends BaseActivity implements ResponseHandlerI
                 PreFilters.PreFilter preFilter = preFilters.new PreFilter();
 
                 MEMORY_BANK memoryBank = MEMORY_BANK.GetMemoryBankValue(filter.getFilterMemoryBankSelection());
-                byte[] bydata = com.zebra.demo.activity.SettingsUtl.hexStringToByteArray(data);
+                byte[] bydata = SettingsUtl.hexStringToByteArray(data);
                 preFilter.setTagPattern(bydata);
                 preFilter.setMemoryBank(memoryBank);
                 preFilter.setBitOffset(offset);
